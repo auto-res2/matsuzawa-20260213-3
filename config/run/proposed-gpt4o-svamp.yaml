@@ -1,0 +1,51 @@
+# FAB-SC (proposed method) on SVAMP with GPT-4o
+
+run_id: proposed-gpt4o-svamp
+
+method:
+  name: fab-sc
+  type: proposed
+  description: "Falsification-Augmented Bidirectional Self-Consistency"
+  
+  # Forward sampling parameters
+  forward_samples: 8
+  temperature: 0.7
+  max_tokens: 512
+  
+  # Bidirectional verification parameters
+  backsolve_enabled: true
+  falsification_enabled: true
+  falsification_attempts: 3
+  
+  # Aggregation weights
+  alpha: 1.0
+  beta: 1.0
+  lambda_length: 0.001
+  tokens0: 200
+
+model:
+  name: gpt-4o
+  provider: openai
+  api_model_name: gpt-4o-2024-08-06
+  max_context_length: 128000
+
+dataset:
+  name: svamp
+  split: test
+  subset: null
+  max_samples: 300  # Pilot: first 300 questions
+  cache_dir: ${cache_dir}
+
+inference:
+  batch_size: 1
+  num_workers: 0
+  save_outputs: true
+  output_format: jsonl
+
+wandb:
+  tags:
+    - fab-sc
+    - proposed
+    - svamp
+    - gpt-4o
+  notes: "FAB-SC method with bidirectional verification and falsification ensemble on SVAMP"

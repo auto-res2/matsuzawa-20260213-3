@@ -1,0 +1,47 @@
+# Standard Self-Consistency (baseline) on SVAMP with GPT-4o
+
+run_id: comparative-1-gpt4o-svamp
+
+method:
+  name: sc
+  type: comparative-1
+  description: "Standard Self-Consistency (baseline)"
+  
+  # Forward sampling parameters
+  forward_samples: 8
+  temperature: 0.7
+  max_tokens: 512
+  
+  # No bidirectional verification
+  backsolve_enabled: false
+  falsification_enabled: false
+  
+  # Simple majority voting
+  aggregation: majority_vote
+
+model:
+  name: gpt-4o
+  provider: openai
+  api_model_name: gpt-4o-2024-08-06
+  max_context_length: 128000
+
+dataset:
+  name: svamp
+  split: test
+  subset: null
+  max_samples: 300  # Pilot: first 300 questions
+  cache_dir: ${cache_dir}
+
+inference:
+  batch_size: 1
+  num_workers: 0
+  save_outputs: true
+  output_format: jsonl
+
+wandb:
+  tags:
+    - sc
+    - baseline
+    - svamp
+    - gpt-4o
+  notes: "Standard Self-Consistency baseline (majority vote) on SVAMP"

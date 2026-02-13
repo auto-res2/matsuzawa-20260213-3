@@ -1,0 +1,47 @@
+# Standard Self-Consistency (baseline) on GSM8K with GPT-4o
+
+run_id: comparative-1-gpt4o-gsm8k
+
+method:
+  name: sc
+  type: comparative-1
+  description: "Standard Self-Consistency (baseline)"
+  
+  # Forward sampling parameters (same budget as FAB-SC)
+  forward_samples: 8  # m samples per question
+  temperature: 0.7
+  max_tokens: 512
+  
+  # No bidirectional verification for baseline
+  backsolve_enabled: false
+  falsification_enabled: false
+  
+  # Simple majority voting
+  aggregation: majority_vote
+
+model:
+  name: gpt-4o
+  provider: openai
+  api_model_name: gpt-4o-2024-08-06
+  max_context_length: 128000
+
+dataset:
+  name: gsm8k
+  split: test
+  subset: main
+  max_samples: 200  # Pilot: first 200 questions
+  cache_dir: ${cache_dir}
+
+inference:
+  batch_size: 1
+  num_workers: 0
+  save_outputs: true
+  output_format: jsonl
+
+wandb:
+  tags:
+    - sc
+    - baseline
+    - gsm8k
+    - gpt-4o
+  notes: "Standard Self-Consistency baseline (majority vote) on GSM8K"
