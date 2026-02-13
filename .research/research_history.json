@@ -532,5 +532,142 @@
     "experimental_code": "import re\nimport math\nfrom collections import Counter, defaultdict\n\nimport torch\nfrom transformers import AutoTokenizer, AutoModelForCausalLM\n\nMODEL = \"Qwen/Qwen2.5-3B-Instruct\"  # swap as needed\n\ntok = AutoTokenizer.from_pretrained(MODEL)\nmodel = AutoModelForCausalLM.from_pretrained(\n    MODEL, device_map=\"auto\", torch_dtype=torch.float16\n)\n\nFEWSHOT = \"\"\"You are a careful mathematician. Solve word problems step by step and end with:\nThe answer is <number>.\n\nQ: If you have 3 apples and buy 2 more, how many apples do you have?\nA: You start with 3 and add 2, so 3+2=5. The answer is 5.\n\nQ: A book costs 10 dollars. You buy 3 books. How much do you pay?\nA: Each book is 10. For 3 books: 3*10=30. The answer is 30.\n\"\"\"\n\nANS_RE = re.compile(r\"The answer is\\s*(-?\\d+(?:\\.\\d+)?)\")\n\n\ndef chat(prompt: str, temperature=0.0, top_p=1.0, max_new_tokens=256):\n    messages = [{\"role\": \"user\", \"content\": prompt}]\n    text = tok.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)\n    inputs = tok(text, return_tensors=\"pt\").to(model.device)\n    with torch.no_grad():\n        out = model.generate(\n            **inputs,\n            do_sample=temperature > 0,\n            temperature=temperature,\n            top_p=top_p,\n            max_new_tokens=max_new_tokens,\n            eos_token_id=tok.eos_token_id,\n        )\n    gen = tok.decode(out[0][inputs[\"input_ids\"].shape[-1] :], skip_special_tokens=True)\n    return gen.strip()\n\n\ndef parse_answer(text: str):\n    m = ANS_RE.search(text)\n    return None if m is None else m.group(1)\n\n\ndef approx_token_len(text: str) -> int:\n    # cheap proxy; avoids extra tokenizer calls in a tight loop\n    return max(1, len(text.split()))\n\n\ndef cot_sample(question: str, m=20):\n    prompt = FEWSHOT + f\"\\nQ: {question}\\nA:\"\n    samples = []\n    for _ in range(m):\n        sol = chat(prompt, temperature=0.7, top_p=0.95, max_new_tokens=256)\n        a = parse_answer(sol)\n        if a is not None:\n            samples.append((sol, a))\n    return samples\n\n\ndef backsolve_score(question: str, solution: str, answer: str):\n    # Bidirectional check: verify by plugging the proposed answer back into constraints.\n    prompt = f\"\"\"You are verifying a proposed numeric answer to a math word problem.\nDo NOT re-solve freely. Instead, check the proposed answer by:\n1) Listing key constraints from the problem.\n2) Plugging the proposed answer into those constraints.\n3) Confirming all arithmetic/logic.\n\nReturn exactly two lines:\nSCORE: <number between 0 and 1>\nVERDICT: <PASS or FAIL>\n\nProblem: {question}\nProposed answer: {answer}\nStudent solution (for context): {solution}\n\"\"\"\n    out = chat(prompt, temperature=0.0, max_new_tokens=160)\n    m = re.search(r\"SCORE:\\s*([01](?:\\.\\d+)?)\", out)\n    score = float(m.group(1)) if m else 0.0\n    return max(0.0, min(1.0, score))\n\n\ndef refute_error_prob(question: str, solution: str, answer: str, temperature=0.7):\n    # Adversarial falsification: try to find a flaw. If you find one, error prob should be high.\n    prompt = f\"\"\"You are an adversarial reviewer trying to find a mistake.\nYour job is to REFUTE the student's solution if possible by spotting:\n- misread quantities/units\n- invalid algebra/logic jumps\n- arithmetic slips\n- missing case/constraint\n\nReturn exactly two lines:\nERROR_PROB: <number between 0 and 1>\nREASON: <one short sentence>\n\nProblem: {question}\nStudent solution: {solution}\nStudent final answer: {answer}\n\"\"\"\n    out = chat(prompt, temperature=temperature, top_p=0.95, max_new_tokens=120)\n    m = re.search(r\"ERROR_PROB:\\s*([01](?:\\.\\d+)?)\", out)\n    p = float(m.group(1)) if m else 1.0\n    return max(0.0, min(1.0, p))\n\n\ndef sc_majority(question: str, m=20):\n    samples = cot_sample(question, m=m)\n    if not samples:\n        return None\n    votes = Counter(a for _, a in samples)\n    return votes.most_common(1)[0][0]\n\n\ndef fab_sc(question: str, m=20, k_refute=4, alpha=1.0, beta=1.0, lam=0.15):\n    samples = cot_sample(question, m=m)\n    if not samples:\n        return None\n\n    wsum = defaultdict(float)\n    cnt = Counter()\n\n    for sol, a in samples:\n        # B-check\n        B = backsolve_score(question, sol, a)\n\n        # F-check ensemble\n        ps = [refute_error_prob(question, sol, a, temperature=0.7) for _ in range(k_refute)]\n        F = 1.0 - sum(ps) / len(ps)  # higher is better (harder to refute)\n        F = max(0.0, min(1.0, F))\n\n        # length penalty to reduce verbosity-as-confidence bias\n        L = math.exp(-lam * (approx_token_len(sol) / 100.0))\n\n        w = (B ** alpha) * (F ** beta) * L\n\n        wsum[a] += w\n        cnt[a] += 1\n\n    # weighted vote; tie-break by count\n    best = sorted(wsum.items(), key=lambda kv: (kv[1], cnt[kv[0]]), reverse=True)[0][0]\n    return best\n\n\nif __name__ == \"__main__\":\n    q = \"Tom has 12 candies and gives 5 to Sara. How many candies does Tom have left?\"\n    print(\"SC majority:\", sc_majority(q, m=10))\n    print(\"FAB-SC:\", fab_sc(q, m=10, k_refute=2))\n",
     "expected_result": "On GSM8K (first 200 test problems), using m=20, k=4:\n- CoT greedy: ~40–45% accuracy\n- SC majority: ~50–55%\n- Single self-score weighted SC: ~53–58% (as in the current hypothesis)\n- **FAB-SC:** ~56–61% (**+3 to +6 points vs SC**, +1 to +3 vs single self-score)\n\nSecondary expectations:\n- Wrong-majority rescue rate: FAB-SC fixes ~8–15% of the SC errors on the pilot subset.\n- Reliability separation: mean w_i for correct samples exceeds incorrect by ~0.20+ (larger than single self-score alone).\n- Length confound: correlation(weight, length) is reduced relative to single self-score weighting due to the explicit penalty.\n\nCompute: compared to SC, FAB-SC adds ~ (1 + k) short checks per sampled rationale; expected 2.5–4× token cost vs SC, but still feasible for a 200-item pilot.",
     "expected_conclusion": "Adding a *falsification* and a *backsolve* check to self-consistency yields a prompt-only approximation to human “try to disprove + plug back in” metacognition. This directly targets SC’s most damaging failure mode—correlated wrong-majority answers—rather than merely reweighting by self-reported confidence. Academically, FAB-SC provides a clean, training-free testbed for studying whether LLMs can produce useful negative evidence (refutations) and constraint-based verification signals, and whether combining orthogonal checks improves robustness under shared biases. Socially/practically, it offers a drop-in reliability improvement for reasoning-heavy applications (education, decision support) where wrong-but-confident consensus is hazardous, with validation possible via a lightweight Python script and no model fine-tuning."
+  },
+  "experimental_design": {
+    "experiment_summary": "Task: solve short-grade-school arithmetic word problems by generating a final numeric answer (e.g., “The answer is 42.”), then aggregate multiple sampled solutions to improve correctness. We test whether FAB-SC (Falsification-Augmented Bidirectional Self-Consistency) is more robust than standard Self-Consistency (SC) when the model’s sampled rationales share correlated mistakes.\n\nWorkflow per question (inference-only; no training):\n1) Forward solve sampling: sample m chain-of-thought (CoT) solutions from the base LLM with stochastic decoding, extracting a candidate final answer a_i from each sample.\n2) Bidirectional verification for each (solution, answer) pair:\n   a) Backsolve / plug-back check (B-check): condition on the proposed answer a_i and force the model to verify it by enumerating constraints from the problem and checking arithmetic/logic. Output a bounded scalar B_i∈[0,1] and PASS/FAIL.\n   b) Adversarial falsification ensemble (F-check): run k short “refuter” generations that try to find flaws (unit mismatch, misread quantity, algebra slip, missing constraint). Each refuter outputs ERROR_PROB∈[0,1]; aggregate F_i = 1 − mean(ERROR_PROB).\n3) Anti-verbosity regularization: compute a length penalty L_i = exp(−λ·len_tokens(r_i)/tokens0) in Python to reduce the known confound that longer/fluent rationales receive higher self-scores.\n4) Importance-weighted aggregation: w_i = (B_i^α)·(F_i^β)·L_i; pick the answer with maximal sum of weights over samples with that answer.\n\nBaselines: standard Self-Consistency (SC) majority vote using the same base model and the same forward-sampling budget m.\n\nScale & resource fit (Runner: 1× NVIDIA H200 140GB VRAM, 240GB RAM):\n- The method increases calls per question (~(1+k) verification calls per forward sample). To keep runtime feasible on a single GPU, the experiment is staged:\n  • Pilot: GSM8K test first 200 questions + SVAMP test first 300 questions.\n  • Final (optional if time allows): full GSM8K test (1319) and full SVAMP test (1000).\n- Default decoding budgets (pilot): m=16 forward samples, k=3 refuters/sample. Backsolve uses temperature=0 and short max tokens. Refuters are short and stochastic.\n- Implementation is designed for single-GPU batching (generate multiple samples per question where possible) and can use vLLM for throughput; Transformers-only implementation is also supported.\n\nGoal: demonstrate that FAB-SC improves answer accuracy and specifically “rescues” cases where SC forms a high-agreement wrong majority, while reducing length-driven confidence artifacts.",
+    "runner_config": {
+      "runner_label": [
+        "self-hosted",
+        "gpu-runner"
+      ],
+      "description": "NVIDIA H200, VRAM: 140 GB, RAM: 240 GB"
+    },
+    "evaluation_metrics": [
+      {
+        "name": "accuracy",
+        "description": "Correctness criteria: A prediction is correct if the extracted numeric final answer matches the gold numeric answer after normalization.\n- Normalization: remove commas/spaces, handle leading/trailing punctuation, convert to float if possible.\n- Integer problems (GSM8K, SVAMP): compare as integers when both are close to an integer (|x-round(x)|<1e-6); otherwise compare floats with tolerance.\n- Float tolerance: correct if |pred-gold| <= max(1e-4, 1e-4*|gold|).\nCalculation method: accuracy = (1/N) * Σ_{j=1..N} 1[pred_j is correct].\nTask appropriateness: primary measure for word-problem solving where each item has a single correct numeric answer.\nRelevant visualizations: (i) Bar chart of accuracy by method and dataset with 95% bootstrap CI; (ii) histogram of absolute numeric error (pred-gold) for incorrect predictions (to inspect typical error magnitude)."
+      },
+      {
+        "name": "Wrong-majority rescue rate",
+        "description": "Correctness criteria: For each question j, define SC_j (baseline SC aggregated answer) and FAB_j. A question counts as a rescue if SC_j is incorrect and FAB_j is correct under the same answer-normalization rules as in accuracy.\nCalculation method: rescue_rate = (# {j : SC incorrect ∧ FAB correct}) / (# {j : SC incorrect}).\nTask appropriateness: directly targets the research hypothesis: SC can produce a high-agreement wrong answer due to correlated reasoning errors; FAB-SC should flip some of these cases.\nRelevant visualizations: stacked bar plot partitioning questions into {both correct, SC-only correct, FAB-only correct, both wrong}; additionally, a table of representative rescued examples with SC vote distribution and FAB weights (qualitative diagnostic)."
+      },
+      {
+        "name": "Compute-normalized accuracy (tokens)",
+        "description": "Correctness criteria: same as accuracy, but reported alongside total generated tokens as a compute proxy.\nCalculation method:\n- For each question, count generated tokens across all LLM calls (forward samples + backsolve + refuters). Use tokenizer tokenization for exact counts.\n- Report (i) mean tokens/question; (ii) accuracy at fixed budget settings; optionally plot accuracy vs tokens by sweeping (m,k).\nTask appropriateness: FAB-SC trades extra inference compute for robustness; token-normalized reporting makes this explicit and comparable.\nRelevant visualizations: scatter/line plot of accuracy vs mean tokens/question across budget sweeps; Pareto frontier plot (higher accuracy, lower tokens)."
+      },
+      {
+        "name": "Reliability-weight separability (AUC)",
+        "description": "Correctness criteria: Each forward sample i for question j has a computed weight w_{j,i}. Label each sample as y_{j,i}=1 if its final answer equals the gold answer (normalized numeric match), else 0.\nCalculation method: Pool all samples across questions and compute ROC-AUC for using w_{j,i} as a score to discriminate correct vs incorrect samples.\n- If ties are common, use standard rank-based AUC.\nTask appropriateness: tests whether FAB-SC’s internal reliability signal (w) meaningfully distinguishes correct from incorrect rationales, which is necessary for robust aggregation.\nRelevant visualizations: ROC curve; density plot (or violin plot) of w for correct vs incorrect samples."
+      },
+      {
+        "name": "Length–weight correlation",
+        "description": "Correctness criteria: Each sample has rationale length ℓ_{j,i} (token count) and weight w_{j,i} (for FAB-SC) or baseline score (if computed).\nCalculation method: Compute Spearman ρ between ℓ and w over all samples (or per question then average). Lower correlation indicates less “verbosity-as-confidence” confounding.\nTask appropriateness: directly evaluates the anti-verbosity regularization component intended to reduce superficial confidence artifacts.\nRelevant visualizations: scatter plot of weight vs length with a fitted trend line; report Spearman ρ with bootstrap CI."
+      },
+      {
+        "name": "Paired bootstrap significance (FAB-SC − SC)",
+        "description": "Correctness criteria: Uses per-question correctness indicators under the accuracy definition.\nCalculation method:\n- For N questions, compute Δ = acc_FAB − acc_SC.\n- Paired bootstrap: resample N questions with replacement B times (e.g., B=10,000), recompute Δ_b; report 2.5/97.5 percentiles as 95% CI and the bootstrap p-value for Δ>0.\nTask appropriateness: controls for question difficulty by pairing methods on the same items; standard for comparing accuracies on a fixed test set.\nRelevant visualizations: histogram of bootstrap Δ_b with 0 marked; CI error bar plot for Δ."
+      }
+    ],
+    "models_to_use": [
+      "Qwen3-8B (8B parameters)"
+    ],
+    "datasets_to_use": [
+      "gsm8k",
+      "SVAMP"
+    ],
+    "proposed_method": {
+      "method_name": "FAB-SC (Falsification-Augmented Bidirectional Self-Consistency)",
+      "description": "Prompt-only decoding + aggregation that augments Self-Consistency with (i) a backsolve/plug-back constraint verification score and (ii) a stochastic adversarial refuter ensemble, then combines these orthogonal checks with a length penalty into importance weights for weighted voting. Designed to reduce SC’s failure mode of correlated wrong-majority rationales without training an external verifier.",
+      "optuna_config": {
+        "enabled": true,
+        "n_trials": 20,
+        "search_spaces": [
+          {
+            "param_name": "m",
+            "distribution_type": "categorical",
+            "choices": [
+              8,
+              12,
+              16,
+              20
+            ]
+          },
+          {
+            "param_name": "k_refute",
+            "distribution_type": "categorical",
+            "choices": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          {
+            "param_name": "alpha",
+            "distribution_type": "uniform",
+            "low": 0.5,
+            "high": 2.5
+          },
+          {
+            "param_name": "beta",
+            "distribution_type": "uniform",
+            "low": 0.5,
+            "high": 2.5
+          },
+          {
+            "param_name": "lambda_len",
+            "distribution_type": "uniform",
+            "low": 0.0,
+            "high": 0.5
+          },
+          {
+            "param_name": "temperature_forward",
+            "distribution_type": "uniform",
+            "low": 0.5,
+            "high": 0.9
+          },
+          {
+            "param_name": "temperature_refute",
+            "distribution_type": "uniform",
+            "low": 0.6,
+            "high": 1.0
+          }
+        ]
+      }
+    },
+    "comparative_methods": [
+      {
+        "method_name": "Self-Consistency (SC) majority vote",
+        "description": "Baseline self-consistency: sample m independent CoT solutions with stochastic decoding and return the most frequent extracted final answer (unweighted majority). This is the standard SC assumption tested by the hypothesis (agreement implies correctness).",
+        "optuna_config": {
+          "enabled": true,
+          "n_trials": 20,
+          "search_spaces": [
+            {
+              "param_name": "m",
+              "distribution_type": "categorical",
+              "choices": [
+                8,
+                12,
+                16,
+                20
+              ]
+            },
+            {
+              "param_name": "temperature_forward",
+              "distribution_type": "uniform",
+              "low": 0.5,
+              "high": 0.9
+            },
+            {
+              "param_name": "top_p",
+              "distribution_type": "uniform",
+              "low": 0.9,
+              "high": 1.0
+            }
+          ]
+        }
+      }
+    ]
   }
 }
