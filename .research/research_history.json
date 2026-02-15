@@ -99,6 +99,8 @@
       ],
       "meta_data": {
         "arxiv_id": "2201.11903v6",
+        "doi": null,
+        "is_generated": null,
         "authors": [
           "Jason Wei",
           "Xuezhi Wang",
@@ -110,8 +112,20 @@
           "Quoc Le",
           "Denny Zhou"
         ],
+        "author_affiliations": null,
+        "language": null,
         "published_date": "2022-01-28T02:33:07Z",
-        "github_url": ""
+        "venue": null,
+        "volume": null,
+        "issue": null,
+        "pages": null,
+        "pdf_url": null,
+        "github_url": "",
+        "peer_review_status": null,
+        "access_type": null,
+        "reference_count": null,
+        "citation_count": null,
+        "h_index_relevance": null
       },
       "llm_extracted_info": {
         "main_contributions": "Introduces chain-of-thought (CoT) prompting: augment few-shot prompts with ⟨input, intermediate natural-language reasoning steps, output⟩ demonstrations to elicit multi-step reasoning in large language models (LLMs). Shows CoT prompting substantially improves performance on arithmetic (e.g., GSM8K), commonsense (e.g., StrategyQA), and symbolic reasoning tasks, often rivaling or surpassing task-specific finetuned systems. Finds CoT gains are emergent with scale: helpful mainly for ~100B+ parameter models; small models produce fluent but illogical CoTs. Demonstrates CoT prompting can improve out-of-domain length generalization on symbolic tasks (longer sequences than exemplars). Provides ablations indicating benefits are not explained by extra tokens (‘variable compute’) or by placing reasoning after the answer, and that ‘equation-only’ intermediates are insufficient for semantically rich problems like GSM8K.",
@@ -137,6 +151,8 @@
       ],
       "meta_data": {
         "arxiv_id": "2402.03061v1",
+        "doi": null,
+        "is_generated": null,
         "authors": [
           "Anis Chiout",
           "Agnès Tempez",
@@ -151,8 +167,20 @@
           "Abdelkarim Ouerghi",
           "Julien Chaste"
         ],
+        "author_affiliations": null,
+        "language": null,
         "published_date": "2024-02-05T14:52:33Z",
-        "github_url": ""
+        "venue": null,
+        "volume": null,
+        "issue": null,
+        "pages": null,
+        "pdf_url": null,
+        "github_url": "",
+        "peer_review_status": null,
+        "access_type": null,
+        "reference_count": null,
+        "citation_count": null,
+        "h_index_relevance": null
       },
       "llm_extracted_info": {
         "main_contributions": "Demonstrates deterministic, tunable extreme tensile strain engineering (up to ~10%) in a suspended monolayer ternary TMD WS1.3Se0.7 using AFM nano-indentation while simultaneously measuring nanoscale optical response via tip-enhanced photoluminescence (TEPL). Extracts mechanical properties (Young’s modulus ~273 GPa, pretension ~0.158 N/m) from force–deflection curves and quantifies strain-dependent bandgap/PL shifts. Identifies a strain-sensitive additional/shoulder TEPL feature attributed to the nano-region directly under the tip apex; this feature shifts ~64 meV/% strain and supports the high-strain model. Develops and validates a coupled opto-mechanical–electronic–exciton-transport framework: indentation strain profile + DFT bandgap vs strain + convolution with exciton distribution, including exciton funneling and Auger recombination at room temperature.",
@@ -199,13 +227,27 @@
       ],
       "meta_data": {
         "arxiv_id": "2305.11526v2",
+        "doi": null,
+        "is_generated": null,
         "authors": [
           "Hao Liu",
           "Huimin Ma",
           "Tianyu Hu"
         ],
+        "author_affiliations": null,
+        "language": null,
         "published_date": "2023-05-19T08:50:58Z",
-        "github_url": ""
+        "venue": null,
+        "volume": null,
+        "issue": null,
+        "pages": null,
+        "pdf_url": null,
+        "github_url": "",
+        "peer_review_status": null,
+        "access_type": null,
+        "reference_count": null,
+        "citation_count": null,
+        "h_index_relevance": null
       },
       "llm_extracted_info": {
         "main_contributions": "Addresses short-term (6–24h) multi-site wind speed forecasting under strong spatio-temporal dependencies and time-lagged cross-farm correlations. Proposes GFST-WSF, an encoder–decoder model that (i) integrates a Graph Attention Network (GAT) for spatial feature aggregation across wind farms with (ii) a frequency-enhanced decomposed Transformer (FEDformer) for long/short-term temporal modeling. Introduces a dynamic complex adjacency matrix whose real part encodes inter-farm correlation strength (edge existence) and imaginary part encodes estimated time lag of correlation propagation, enabling time-lag-aware spatial modeling. Demonstrates consistent error reductions vs persistence, ML, RNN, Transformer, and FEDformer baselines; additional ablations show each module (GAT + complex adjacency, added time-domain multi-head attention) contributes to gains.",
@@ -289,6 +331,8 @@
       ],
       "meta_data": {
         "arxiv_id": "2203.11171v4",
+        "doi": null,
+        "is_generated": null,
         "authors": [
           "Xuezhi Wang",
           "Jason Wei",
@@ -299,8 +343,20 @@
           "Aakanksha Chowdhery",
           "Denny Zhou"
         ],
+        "author_affiliations": null,
+        "language": null,
         "published_date": "2022-03-21T17:48:52Z",
-        "github_url": ""
+        "venue": null,
+        "volume": null,
+        "issue": null,
+        "pages": null,
+        "pdf_url": null,
+        "github_url": "",
+        "peer_review_status": null,
+        "access_type": null,
+        "reference_count": null,
+        "citation_count": null,
+        "h_index_relevance": null
       },
       "llm_extracted_info": {
         "main_contributions": "Proposes self-consistency, an unsupervised decoding strategy for chain-of-thought (CoT) prompting that replaces greedy decoding with a sample-and-marginalize procedure: sample multiple diverse reasoning paths from a single LLM and select the final answer by aggregating (typically majority vote) over the sampled answers. Demonstrates large accuracy gains on arithmetic, commonsense, and symbolic reasoning benchmarks (e.g., +17.9% GSM8K, +11.0% SVAMP, +12.2% AQuA, +6.4% StrategyQA, +3.9% ARC-Challenge) and shows self-consistency can help when adding CoT rationales otherwise degrades performance on some NLP tasks.",
@@ -380,6 +436,8 @@
       ],
       "meta_data": {
         "arxiv_id": "2405.18739v1",
+        "doi": null,
+        "is_generated": null,
         "authors": [
           "Mulei Ma",
           "Chenyu Gong",
@@ -387,8 +445,20 @@
           "Yang Yang",
           "Liantao Wu"
         ],
+        "author_affiliations": null,
+        "language": null,
         "published_date": "2024-05-29T03:53:52Z",
-        "github_url": ""
+        "venue": null,
+        "volume": null,
+        "issue": null,
+        "pages": null,
+        "pdf_url": null,
+        "github_url": "",
+        "peer_review_status": null,
+        "access_type": null,
+        "reference_count": null,
+        "citation_count": null,
+        "h_index_relevance": null
       },
       "llm_extracted_info": {
         "main_contributions": "FlocOff addresses two coupled bottlenecks in edge federated learning (FL) under non-IID (heterogeneous, imbalanced) client data: (i) degraded convergence/accuracy due to statistical heterogeneity and (ii) high communication/energy cost in resource-constrained wireless edge networks. The paper (1) provides a convergence-gap analysis showing model drift between IID vs non-IID training grows with a heterogeneity term (gradient distance γs) and local-update/round factors; (2) formulates an offloading-assisted FL system cost minimization problem that jointly decides device→edge-server data offloading (binary mapping) and uplink power allocation; (3) proposes FlocOff, a two-step optimization framework that reshapes edge datasets by offloading to minimize distribution divergence (reducing γs) and allocates wireless resources to cut communication cost; (4) empirically demonstrates 14.3%–32.7% accuracy gains over baselines and up to 48.1% lower communication cost while reducing measured data heterogeneity (KL divergence).",
@@ -410,6 +480,8 @@
       ],
       "meta_data": {
         "arxiv_id": "2402.13885v1",
+        "doi": null,
+        "is_generated": null,
         "authors": [
           "James A. G. Jackman",
           "Evgenya L. Shkolnik",
@@ -424,8 +496,20 @@
           "Gary Walker",
           "John Wetmore"
         ],
+        "author_affiliations": null,
+        "language": null,
         "published_date": "2024-02-21T15:55:25Z",
-        "github_url": ""
+        "venue": null,
+        "volume": null,
+        "issue": null,
+        "pages": null,
+        "pdf_url": null,
+        "github_url": "",
+        "peer_review_status": null,
+        "access_type": null,
+        "reference_count": null,
+        "citation_count": null,
+        "h_index_relevance": null
       },
       "llm_extracted_info": {
         "main_contributions": "Multi-wavelength (TESS+Swift UVOT grism+ground-based Pro-Am photometry/spectroscopy) campaign on active M-dwarf binary CR Draconis to quantify near-UV (NUV) flare energetics and test common optical-calibrated flare SED models. Key results: (i) 14 flares observed simultaneously with TESS and Swift; NUV (2200–3000 Å) energies 1.5×10^31–1.2×10^33 erg (lower limits); Mg II h&k line energies 2.4×10^30–1.8×10^32 erg contributing 9–24% of 2200–3000 Å energy. (ii) One flare captured with full tri-band coverage (TESS+B+NUV) plus optical spectra; two-colour optical temperatures peaked at ~7100 K (FWHM ~6320 K; global ~6050 K), cooler than the widely assumed 9000 K blackbody. (iii) Two-colour optical continuum extrapolation underpredicts measured NUV flux by factors ~4 (total 2200–3000 Å) and ~2–3 (pseudo-continuum), attributed to Balmer continuum plus line emission. (iv) 9000 K blackbody normalized to TESS typically overpredicts NUV during decay (90% of Swift visits), showing strong phase dependence; occasional underprediction driven largely by persistent Mg II emission. (v) Optical line diagnostics: Balmer line energies and decrements (Hβ/Hγ ~0.9–1.2) consistent with typical M-dwarf flare conditions; Hα shows longer decay than higher-order lines, and line-to-bolometric ratios of a few percent.",
@@ -458,12 +542,26 @@
       ],
       "meta_data": {
         "arxiv_id": "2305.10986v2",
+        "doi": null,
+        "is_generated": null,
         "authors": [
           "Haocheng Hua",
           "Jie Xu"
         ],
+        "author_affiliations": null,
+        "language": null,
         "published_date": "2023-05-18T14:04:24Z",
-        "github_url": ""
+        "venue": null,
+        "volume": null,
+        "issue": null,
+        "pages": null,
+        "pdf_url": null,
+        "github_url": "",
+        "peer_review_status": null,
+        "access_type": null,
+        "reference_count": null,
+        "citation_count": null,
+        "h_index_relevance": null
       },
       "llm_extracted_info": {
         "main_contributions": "Derives a near-field 3D multi-target localization performance bound and a practical estimator for massive-antenna MIMO radar/ISAC settings where far-field planar-wave models fail. Key contributions: (i) adopts an exact spherical-wave propagation model that includes antenna-dependent phase and free-space path-loss amplitude variations across Tx/Rx elements; (ii) derives the Fisher Information Matrix (FIM) and resulting Cramér–Rao Bound (CRB) for jointly estimating each target’s 3D coordinates and complex reflection coefficient under general transmit waveforms and unknown colored clutter/noise covariance; (iii) proposes an efficient maximum-likelihood (ML) inspired localization algorithm, 3D approximate cyclic optimization (3D-ACO), combining covariance concentration, approximate ML (AML) estimation of reflection coefficients, and cyclic coordinate search over 3D positions; (iv) shows via simulation that ignoring antenna-varying amplitudes can significantly mis-predict CRB at short ranges, and that 3D-ACO approaches the CRB at high SNR.",
@@ -507,11 +605,25 @@
       ],
       "meta_data": {
         "arxiv_id": "2402.04944v3",
+        "doi": null,
+        "is_generated": null,
         "authors": [
           "Esfandiar Nava-Yazdani"
         ],
+        "author_affiliations": null,
+        "language": null,
         "published_date": "2024-02-07T15:25:20Z",
-        "github_url": ""
+        "venue": null,
+        "volume": null,
+        "issue": null,
+        "pages": null,
+        "pdf_url": null,
+        "github_url": "",
+        "peer_review_status": null,
+        "access_type": null,
+        "reference_count": null,
+        "citation_count": null,
+        "h_index_relevance": null
       },
       "llm_extracted_info": {
         "main_contributions": "Studies geometric effects of the Square Root Velocity (SRV) transform in elastic shape analysis, especially how speed and curvature of plane curves change under SRV and which quantities are preserved (e.g., total curvature/turning number). Extends/uses SRV-based elastic distances on homogeneous spaces to enable intrinsic comparison of manifold-valued and augmented curves, and leverages natural constructions (e.g., via exponential map) to compare constrained surface classes generated by augmented curves: tubes (canal surfaces), ruled surfaces, and spherical strips. Demonstrates the framework on real-world style data including hurricane tracks augmented with intensity.",
@@ -578,6 +690,7 @@
     "proposed_method": {
       "method_name": "FAB-SC (Falsification-Augmented Bidirectional Self-Consistency)",
       "description": "Prompt-only decoding + aggregation that augments Self-Consistency with (i) a backsolve/plug-back constraint verification score and (ii) a stochastic adversarial refuter ensemble, then combines these orthogonal checks with a length penalty into importance weights for weighted voting. Designed to reduce SC’s failure mode of correlated wrong-majority rationales without training an external verifier.",
+      "training_config": null,
       "optuna_config": {
         "enabled": true,
         "n_trials": 20,
@@ -585,6 +698,8 @@
           {
             "param_name": "m",
             "distribution_type": "categorical",
+            "low": null,
+            "high": null,
             "choices": [
               8,
               12,
@@ -595,6 +710,8 @@
           {
             "param_name": "k_refute",
             "distribution_type": "categorical",
+            "low": null,
+            "high": null,
             "choices": [
               1,
               2,
@@ -606,31 +723,36 @@
             "param_name": "alpha",
             "distribution_type": "uniform",
             "low": 0.5,
-            "high": 2.5
+            "high": 2.5,
+            "choices": null
           },
           {
             "param_name": "beta",
             "distribution_type": "uniform",
             "low": 0.5,
-            "high": 2.5
+            "high": 2.5,
+            "choices": null
           },
           {
             "param_name": "lambda_len",
             "distribution_type": "uniform",
             "low": 0.0,
-            "high": 0.5
+            "high": 0.5,
+            "choices": null
           },
           {
             "param_name": "temperature_forward",
             "distribution_type": "uniform",
             "low": 0.5,
-            "high": 0.9
+            "high": 0.9,
+            "choices": null
           },
           {
             "param_name": "temperature_refute",
             "distribution_type": "uniform",
             "low": 0.6,
-            "high": 1.0
+            "high": 1.0,
+            "choices": null
           }
         ]
       }
@@ -639,6 +761,7 @@
       {
         "method_name": "Self-Consistency (SC) majority vote",
         "description": "Baseline self-consistency: sample m independent CoT solutions with stochastic decoding and return the most frequent extracted final answer (unweighted majority). This is the standard SC assumption tested by the hypothesis (agreement implies correctness).",
+        "training_config": null,
         "optuna_config": {
           "enabled": true,
           "n_trials": 20,
@@ -646,6 +769,8 @@
             {
               "param_name": "m",
               "distribution_type": "categorical",
+              "low": null,
+              "high": null,
               "choices": [
                 8,
                 12,
@@ -657,13 +782,15 @@
               "param_name": "temperature_forward",
               "distribution_type": "uniform",
               "low": 0.5,
-              "high": 0.9
+              "high": 0.9,
+              "choices": null
             },
             {
               "param_name": "top_p",
               "distribution_type": "uniform",
               "low": 0.9,
-              "high": 1.0
+              "high": 1.0,
+              "choices": null
             }
           ]
         }
@@ -685,5 +812,344 @@
       "config/run/proposed-gpt4o-svamp.yaml": "# FAB-SC (proposed method) on SVAMP with GPT-4o\n\nrun_id: proposed-gpt4o-svamp\n\nmethod:\n  name: fab-sc\n  type: proposed\n  description: \"Falsification-Augmented Bidirectional Self-Consistency\"\n  \n  # Forward sampling parameters\n  forward_samples: 8\n  temperature: 0.7\n  max_tokens: 512\n  \n  # Bidirectional verification parameters\n  backsolve_enabled: true\n  falsification_enabled: true\n  falsification_attempts: 3\n  \n  # Aggregation weights\n  alpha: 1.0\n  beta: 1.0\n  lambda_length: 0.001\n  tokens0: 200\n\nmodel:\n  name: gpt-4o\n  provider: openai\n  api_model_name: gpt-4o-2024-08-06\n  max_context_length: 128000\n\ndataset:\n  name: svamp\n  split: test\n  subset: null\n  max_samples: 300  # Pilot: first 300 questions\n  cache_dir: ${cache_dir}\n\ninference:\n  batch_size: 1\n  num_workers: 0\n  save_outputs: true\n  output_format: jsonl\n\nwandb:\n  tags:\n    - fab-sc\n    - proposed\n    - svamp\n    - gpt-4o\n  notes: \"FAB-SC method with bidirectional verification and falsification ensemble on SVAMP\"\n",
       "pyproject.toml": "[project]\nname = \"matsuzawa-20260213-3\"\nversion = \"0.1.0\"\ndescription = \"FAB-SC experiment: Falsification-Augmented Bidirectional Self-Consistency for LLM reasoning\"\nrequires-python = \">=3.11\"\ndependencies = [\n    \"hydra-core>=1.3.0\",\n    \"omegaconf>=2.3.0\",\n    \"wandb>=0.16.0\",\n    \"torch>=2.1.0\",\n    \"datasets>=2.14.0\",\n    \"transformers>=4.35.0\",\n    \"accelerate>=0.24.0\",\n    \"openai>=1.0.0\",\n    \"anthropic>=0.8.0\",\n    \"tiktoken>=0.5.0\",\n    \"numpy>=1.24.0\",\n    \"pandas>=2.0.0\",\n    \"matplotlib>=3.7.0\",\n    \"seaborn>=0.12.0\",\n    \"scikit-learn>=1.3.0\",\n    \"tqdm>=4.65.0\",\n    \"pyyaml>=6.0\",\n]\n"
     }
-  }
+  },
+  "experimental_results": {
+    "stdout": null,
+    "stderr": null,
+    "figures": [
+      "accuracy_progress.pdf",
+      "accuracy_progress.pdf",
+      "accuracy_progress.pdf",
+      "accuracy_progress.pdf",
+      "comparison_accuracy.pdf",
+      "comparison_accuracy_progress.pdf"
+    ],
+    "metrics_data": {
+      "comparative-1-gpt4o-gsm8k": {
+        "run_id": "comparative-1-gpt4o-gsm8k",
+        "summary": {
+          "_runtime": 1164,
+          "_step": 199,
+          "_timestamp": 1771019387.821275,
+          "accuracy": 0.81,
+          "correct": 1,
+          "correct_count": 162,
+          "question_idx": 199,
+          "total_count": 200
+        },
+        "config": {
+          "run": {
+            "model": {
+              "name": "gpt-4o",
+              "provider": "openai",
+              "api_model_name": "gpt-4o-2024-08-06",
+              "max_context_length": 128000
+            },
+            "wandb": {
+              "tags": [
+                "sc",
+                "baseline",
+                "gsm8k",
+                "gpt-4o"
+              ],
+              "notes": "Standard Self-Consistency baseline (majority vote) on GSM8K"
+            },
+            "method": {
+              "name": "sc",
+              "type": "comparative-1",
+              "max_tokens": 512,
+              "aggregation": "majority_vote",
+              "description": "Standard Self-Consistency (baseline)",
+              "temperature": 0.7,
+              "forward_samples": 8,
+              "backsolve_enabled": false,
+              "falsification_enabled": false
+            },
+            "run_id": "comparative-1-gpt4o-gsm8k",
+            "dataset": {
+              "name": "gsm8k",
+              "split": "test",
+              "subset": "main",
+              "cache_dir": ".cache",
+              "max_samples": 200
+            },
+            "inference": {
+              "batch_size": 1,
+              "num_workers": 0,
+              "save_outputs": true,
+              "output_format": "jsonl"
+            }
+          },
+          "mode": "main",
+          "wandb": {
+            "mode": "online",
+            "entity": "airas",
+            "project": "2026-02-13-3"
+          },
+          "cache_dir": ".cache",
+          "results_dir": ".research/results"
+        }
+      },
+      "comparative-1-gpt4o-svamp": {
+        "run_id": "comparative-1-gpt4o-svamp",
+        "summary": {
+          "_runtime": 1548,
+          "_step": 299,
+          "_timestamp": 1771019769.9933963,
+          "accuracy": 0.8433333333333334,
+          "correct": 1,
+          "correct_count": 253,
+          "question_idx": 299,
+          "total_count": 300
+        },
+        "config": {
+          "run": {
+            "model": {
+              "name": "gpt-4o",
+              "provider": "openai",
+              "api_model_name": "gpt-4o-2024-08-06",
+              "max_context_length": 128000
+            },
+            "wandb": {
+              "tags": [
+                "sc",
+                "baseline",
+                "svamp",
+                "gpt-4o"
+              ],
+              "notes": "Standard Self-Consistency baseline (majority vote) on SVAMP"
+            },
+            "method": {
+              "name": "sc",
+              "type": "comparative-1",
+              "max_tokens": 512,
+              "aggregation": "majority_vote",
+              "description": "Standard Self-Consistency (baseline)",
+              "temperature": 0.7,
+              "forward_samples": 8,
+              "backsolve_enabled": false,
+              "falsification_enabled": false
+            },
+            "run_id": "comparative-1-gpt4o-svamp",
+            "dataset": {
+              "name": "svamp",
+              "split": "test",
+              "subset": null,
+              "cache_dir": ".cache",
+              "max_samples": 300
+            },
+            "inference": {
+              "batch_size": 1,
+              "num_workers": 0,
+              "save_outputs": true,
+              "output_format": "jsonl"
+            }
+          },
+          "mode": "main",
+          "wandb": {
+            "mode": "online",
+            "entity": "airas",
+            "project": "2026-02-13-3"
+          },
+          "cache_dir": ".cache",
+          "results_dir": ".research/results"
+        }
+      },
+      "proposed-gpt4o-gsm8k": {
+        "run_id": "proposed-gpt4o-gsm8k",
+        "summary": {
+          "_runtime": 20587,
+          "_step": 199,
+          "_timestamp": 1771038807.2169302,
+          "accuracy": 0.785,
+          "correct": 1,
+          "correct_count": 157,
+          "question_idx": 199,
+          "total_count": 200
+        },
+        "config": {
+          "run": {
+            "model": {
+              "name": "gpt-4o",
+              "provider": "openai",
+              "api_model_name": "gpt-4o-2024-08-06",
+              "max_context_length": 128000
+            },
+            "wandb": {
+              "tags": [
+                "fab-sc",
+                "proposed",
+                "gsm8k",
+                "gpt-4o"
+              ],
+              "notes": "FAB-SC method with bidirectional verification and falsification ensemble on GSM8K"
+            },
+            "method": {
+              "beta": 1,
+              "name": "fab-sc",
+              "type": "proposed",
+              "alpha": 1,
+              "tokens0": 200,
+              "max_tokens": 512,
+              "description": "Falsification-Augmented Bidirectional Self-Consistency",
+              "temperature": 0.7,
+              "lambda_length": 0.001,
+              "forward_samples": 8,
+              "backsolve_enabled": true,
+              "falsification_enabled": true,
+              "falsification_attempts": 3
+            },
+            "run_id": "proposed-gpt4o-gsm8k",
+            "dataset": {
+              "name": "gsm8k",
+              "split": "test",
+              "subset": "main",
+              "cache_dir": ".cache",
+              "max_samples": 200
+            },
+            "inference": {
+              "batch_size": 1,
+              "num_workers": 0,
+              "save_outputs": true,
+              "output_format": "jsonl"
+            }
+          },
+          "mode": "main",
+          "wandb": {
+            "mode": "online",
+            "entity": "airas",
+            "project": "2026-02-13-3"
+          },
+          "cache_dir": ".cache",
+          "results_dir": ".research/results"
+        }
+      },
+      "proposed-gpt4o-svamp": {
+        "run_id": "proposed-gpt4o-svamp",
+        "summary": {
+          "_runtime": 27764,
+          "_step": 299,
+          "_timestamp": 1771045996.6083486,
+          "accuracy": 0.8533333333333334,
+          "correct": 1,
+          "correct_count": 256,
+          "question_idx": 299,
+          "total_count": 300
+        },
+        "config": {
+          "run": {
+            "model": {
+              "name": "gpt-4o",
+              "provider": "openai",
+              "api_model_name": "gpt-4o-2024-08-06",
+              "max_context_length": 128000
+            },
+            "wandb": {
+              "tags": [
+                "fab-sc",
+                "proposed",
+                "svamp",
+                "gpt-4o"
+              ],
+              "notes": "FAB-SC method with bidirectional verification and falsification ensemble on SVAMP"
+            },
+            "method": {
+              "beta": 1,
+              "name": "fab-sc",
+              "type": "proposed",
+              "alpha": 1,
+              "tokens0": 200,
+              "max_tokens": 512,
+              "description": "Falsification-Augmented Bidirectional Self-Consistency",
+              "temperature": 0.7,
+              "lambda_length": 0.001,
+              "forward_samples": 8,
+              "backsolve_enabled": true,
+              "falsification_enabled": true,
+              "falsification_attempts": 3
+            },
+            "run_id": "proposed-gpt4o-svamp",
+            "dataset": {
+              "name": "svamp",
+              "split": "test",
+              "subset": null,
+              "cache_dir": ".cache",
+              "max_samples": 300
+            },
+            "inference": {
+              "batch_size": 1,
+              "num_workers": 0,
+              "save_outputs": true,
+              "output_format": "jsonl"
+            }
+          },
+          "mode": "main",
+          "wandb": {
+            "mode": "online",
+            "entity": "airas",
+            "project": "2026-02-13-3"
+          },
+          "cache_dir": ".cache",
+          "results_dir": ".research/results"
+        }
+      },
+      "comparison": {
+        "primary_metric": "accuracy",
+        "metrics_by_run": {
+          "comparative-1-gpt4o-gsm8k": {
+            "accuracy": 0.81,
+            "correct_count": 162,
+            "total_count": 200,
+            "method_type": "comparative-1"
+          },
+          "comparative-1-gpt4o-svamp": {
+            "accuracy": 0.8433333333333334,
+            "correct_count": 253,
+            "total_count": 300,
+            "method_type": "comparative-1"
+          },
+          "proposed-gpt4o-gsm8k": {
+            "accuracy": 0.785,
+            "correct_count": 157,
+            "total_count": 200,
+            "method_type": "proposed"
+          },
+          "proposed-gpt4o-svamp": {
+            "accuracy": 0.8533333333333334,
+            "correct_count": 256,
+            "total_count": 300,
+            "method_type": "proposed"
+          }
+        },
+        "best_proposed": {
+          "run_id": "proposed-gpt4o-svamp",
+          "accuracy": 0.8533333333333334
+        },
+        "best_baseline": {
+          "run_id": "comparative-1-gpt4o-svamp",
+          "accuracy": 0.8433333333333334
+        },
+        "gap": 0.010000000000000009
+      }
+    }
+  },
+  "experimental_analysis": null,
+  "paper_content": {
+    "title": "Falsification-Augmented Bidirectional Self-Consistency for Robust Aggregation under Correlated Reasoning Errors",
+    "abstract": "Self-Consistency (SC) improves chain-of-thought (CoT) reasoning by sampling multiple solutions and selecting the most frequent answer, implicitly treating answer agreement as evidence of correctness. This premise breaks when a single model’s samples share correlated mistakes, yielding a high-agreement but wrong majority. We study whether purely prompt-time interventions can make SC more robust without training an external verifier. We propose Falsification-Augmented Bidirectional Self-Consistency (FAB-SC), which attaches to each sampled solution two complementary reliability signals produced by the same base model: a backsolve “plug-back” verification that checks whether a proposed answer satisfies the problem’s explicit constraints, and a small stochastic refuter ensemble that attempts to falsify the solution and outputs an estimated probability of error. We additionally apply a length-based penalty to reduce verbosity-driven scoring artifacts, and aggregate answers via importance-weighted voting. In inference-only pilots with GPT-4o and a matched forward-sampling budget (m=8), FAB-SC yields mixed outcomes: on SVAMP (first 300 test items) it slightly improves accuracy (0.853 vs 0.843 for SC), while on GSM8K (first 200 test items) it reduces accuracy (0.785 vs 0.810) and increases wall-clock runtime by about 18x. These results clarify both the promise and the pitfalls of prompt-only verification when the model “grades its own work,” and motivate more calibrated verification signals and compute-aware variants.",
+    "introduction": "Large language models (LLMs) can often be induced to perform multi-step reasoning by producing intermediate natural-language explanations, commonly termed chain-of-thought (CoT) [@wei-2022-chain]. In arithmetic word problems, CoT can make implicit intermediate computations explicit, improving accuracy relative to direct answer-only prompting. Yet CoT does not eliminate brittleness: a single decoding pass can be derailed by small but consequential mistakes such as an arithmetic slip, a unit mismatch, or an incorrect mapping from text to equations. Worse, the generated rationale may remain fluent and coherent despite being wrong, which complicates downstream trust.\n\nSelf-Consistency (SC) addresses this brittleness at inference time by sampling multiple diverse CoT solutions from the same model and aggregating the resulting final answers, typically by majority vote [@wang-2022-self]. SC can be viewed as a self-ensemble that marginalizes over stochastic reasoning paths: instead of trusting a single trajectory, it trusts the most recurrent answer across sampled trajectories.\n\nHowever, SC relies on an informal but consequential assumption: sampled rationales behave like approximately independent evidence for an answer, so that agreement implies correctness. In practice, this assumption can fail in a particularly damaging way. Samples from a single model share parameters, training data priors, and common high-probability heuristics, so their errors are often correlated. If the model systematically misreads a quantity, repeats an incorrect conversion, or applies the same flawed heuristic across samples, then SC can amplify the shared error into a confident wrong majority. This “high-agreement wrong answer” failure mode is especially risky in settings where the model’s consensus is used as a reliability signal.\n\nHuman problem solvers rarely treat repeated reasoning in the same direction as sufficient verification. Instead, they often use complementary checks that are intentionally different from the original reasoning direction: attempting to falsify the solution by searching for a counterargument, and verifying the proposed answer by plugging it back into the explicit constraints of the problem statement. This paper asks whether these habits can be approximated at prompt time using only a single base LLM, without training a separate verifier or using external tools.\n\nWe propose Falsification-Augmented Bidirectional Self-Consistency (FAB-SC), a prompt-only decoding and aggregation procedure that extends SC with two structured checks per forward sample. First, a backsolve or plug-back check conditions on the proposed final answer and forces the model to verify constraint satisfaction rather than re-solve freely. Second, an adversarial falsification ensemble runs several short “refuter” prompts that explicitly try to find concrete flaws (misread quantities, invalid algebra, arithmetic slips, or missing constraints) and output an estimated probability that the solution is wrong. FAB-SC combines these two verification signals with an external, token-count-based length penalty designed to reduce the known confound between verbosity and self-scoring. The final answer is selected by an importance-weighted vote rather than an unweighted majority.\n\nWe evaluate FAB-SC as a drop-in replacement for SC under a matched forward-sampling budget using GPT-4o. The experiments are inference-only pilot runs on two standard arithmetic word-problem benchmarks used in prior CoT and SC work: GSM8K and SVAMP [@wei-2022-chain; @wang-2022-self]. To control cost, we follow the run configurations and evaluate on prefixes of the official test splits: the first 200 GSM8K test items and the first 300 SVAMP test items. The results show mixed outcomes. On GSM8K (N=200), FAB-SC underperforms SC (0.785 vs 0.810). On SVAMP (N=300), FAB-SC slightly improves over SC (0.853 vs 0.843). Across both datasets, FAB-SC incurs substantial additional wall-clock runtime, about 18x in these runs, reflecting the additional verification calls per forward sample.\n\nThese findings sharpen the empirical question underlying robust inference-time aggregation: prompt-only verification using the same base model may provide useful signals on some distributions, but it can also mis-rank candidates and negate the benefits of self-ensembling on others. Equally importantly, the compute overhead is large, making compute-aware evaluation essential.\n\nOur contributions are:\n- We propose FAB-SC, a prompt-only augmentation to self-consistency that combines (i) a backsolve, constraint-based verification signal and (ii) a stochastic falsification ensemble into per-sample reliability weights for importance-weighted aggregation.\n- We provide an end-to-end inference implementation (Hydra-configured) that records forward rationales, verification outputs, derived scores, and aggregated predictions, enabling reproducible analyses under matched forward-sampling budgets.\n- We report controlled pilot results on GSM8K (first 200 test items) and SVAMP (first 300 test items) comparing FAB-SC to standard SC with the same forward-sampling budget, and we quantify the associated wall-clock runtime overhead.\n\nSeveral follow-up directions are suggested by these pilots. First, evaluating the hypothesized mechanism directly requires metrics beyond aggregate accuracy, such as the rate at which FAB-SC corrects cases where SC yields a wrong majority. Second, the verification prompts and parsing format may need better calibration to avoid systematic self-verification biases. Third, given the substantial overhead, compute-reduction strategies such as early stopping for SC [@ma-2024-escape] become even more relevant when verification is introduced, motivating hybrids that adaptively allocate either forward samples or verification calls.",
+    "related_work": "Chain-of-thought prompting established that providing intermediate reasoning steps in the prompt can substantially improve multi-step performance on arithmetic reasoning benchmarks [@wei-2022-chain]. In our setting, CoT is not the endpoint but the substrate: FAB-SC assumes CoT-style forward reasoning traces exist and uses them as candidates for aggregation and verification. A key limitation of CoT prompting highlighted by subsequent practice is that fluent rationales may still contain subtle mistakes, so additional reliability mechanisms are needed when outputs are used in high-stakes settings.\n\nSelf-consistency is a prominent inference-time method that explicitly uses redundancy to improve reliability: it samples multiple diverse CoT completions and aggregates the final answers, most commonly by majority vote [@wang-2022-self]. SC’s implicit statistical intuition is that agreement across diverse reasoning paths is evidence of correctness. FAB-SC builds directly on SC but focuses on the specific regime where SC’s agreement heuristic can fail: when the sampled set is not diverse in the relevant error dimensions and instead contains correlated mistakes. Under correlated errors, majority vote can be overconfident and systematically wrong.\n\nA practical limitation of SC is its linear scaling of inference cost with the number of samples. Recent work therefore explores compute-aware variants, including early-stopping schemes that terminate sampling once agreement is deemed sufficient [@ma-2024-escape]. This line of work is complementary to FAB-SC in two ways. First, our method increases per-sample compute by adding verification calls, so any deployment-level viability depends even more strongly on compute management. Second, early-stopping ideas provide a concrete template for future FAB-SC variants: one can imagine stopping either forward sampling or verification when additional evidence is unlikely to change the weighted vote.\n\nFinally, FAB-SC relates to prompt-only self-evaluation and critique methods in which the same model is asked to score or critique its own outputs. FAB-SC differs from an undifferentiated self-score by (i) enforcing a constrained backsolve procedure that is explicitly framed as constraint checking rather than free re-solving, and (ii) using multiple stochastic refuters that aim to produce negative evidence (“find a flaw”) rather than a single confidence statement. Nevertheless, because FAB-SC still uses the same base model for both generation and verification, its scores can inherit shared biases, and our pilot results illustrate that such prompt-only verification is not uniformly beneficial even when designed to be complementary to forward solving.",
+    "background": "This work studies inference-time aggregation for short arithmetic word problems, following the evaluation paradigm commonly used in CoT and self-consistency studies [@wei-2022-chain; @wang-2022-self]. Each example consists of a natural-language question and a single numeric gold answer, and performance is measured by answer accuracy after deterministic extraction of a numeric prediction.\n\nProblem setting and notation. Let x denote a word-problem question and y* denote its gold numeric answer. A base LLM is queried with a prompt that requests step-by-step reasoning and a final numeric answer. A single model completion contains a rationale r and an answer string from which we extract a numeric answer a via a deterministic parser. For a fixed question x, standard self-consistency draws m stochastic generations, yielding pairs (r_i, a_i) for i = 1..m, and predicts the aggregated answer a_hat as the most frequent value among {a_i} (majority vote) [@wang-2022-self].\n\nCorrelated errors and the limits of agreement. SC’s empirical success is often attributed to diversity across sampled reasoning paths: if errors are uncorrelated, wrong answers are less likely to recur, while correct answers recur more frequently. In a single-model setting, however, the distribution over sampled rationales can exhibit structured correlations. Even with stochastic decoding, the model’s highest-probability interpretations of an ambiguous statement, its preferred solution templates, and its characteristic arithmetic slips can recur across samples. Under such correlations, agreement becomes an unreliable proxy for correctness, and SC can converge to a wrong majority.\n\nPrompt-time verification as additional evidence. A natural response is to attach to each candidate (r_i, a_i) an estimate of reliability computed at prompt time. FAB-SC uses two bounded scalar scores in [0, 1]. The backsolve score B_i is intended to measure whether the proposed answer a_i satisfies constraints implied by x when checked explicitly. The falsification score F_i is intended to measure how well the solution withstands targeted attempts to find a concrete error. Both signals are produced by the same base model used for forward sampling.\n\nLength confounding and external regularization. Prompt-based self-evaluation can be influenced by superficial correlates of apparent quality, including fluency and verbosity. Because FAB-SC relies on model-generated scores, it adds an explicit length penalty L_i computed outside the model using token counts. This penalty is not a correctness guarantee; rather, it is a simple regularizer intended to reduce the influence of “verbosity-as-confidence” artifacts in the final weighted vote.\n\nTaken together, these components shift aggregation from unweighted counting to importance weighting: rather than treating each forward sample as an equal vote, FAB-SC treats each sample as a vote weighted by an estimated reliability signal derived from constraint checking, survival under refutation, and a length-based penalty. The next section specifies the procedure precisely as implemented in our inference code.",
+    "method": "FAB-SC is an inference-time procedure that augments self-consistency with two verification channels and an external length-based regularizer, and then aggregates candidate answers by an importance-weighted vote. The method is prompt-only in the sense that it uses the same base LLM for forward generation, backsolve verification, and falsification attempts; no fine-tuning or external verifier is introduced.\n\nFor each question x, FAB-SC performs the following steps.\n\n1) Forward solve sampling (SC substrate). We construct a CoT prompt that asks the model to solve the problem step by step. We sample m forward completions using stochastic decoding, obtaining texts that contain a rationale r_i and (after parsing) a numeric answer a_i. This matches the standard SC setup except that FAB-SC will later weight samples rather than count them equally [@wang-2022-self]. Samples whose completions do not yield a parsable numeric answer are discarded.\n\n2) Backsolve or plug-back verification (B-check). For each remaining pair (r_i, a_i), we create a verification prompt that includes the original question x, the proposed numeric answer a_i, and the proposed rationale r_i as context. The prompt instructs the model not to re-solve freely, but to (i) identify key constraints from the problem statement, (ii) plug the proposed answer into those constraints, and (iii) recompute derived quantities to ensure consistency. The model is required to return a numeric field “CONFIDENCE” between 0 and 1 and a “VERDICT” field (PASS or FAIL). We parse the CONFIDENCE value as B_i, clipping to [0, 1] if needed. In the current implementation, backsolve decoding uses a lower temperature (0.3) than forward sampling to reduce variability.\n\n3) Adversarial falsification ensemble (F-check). For each (r_i, a_i), we run k short refuter generations. Each refuter prompt puts the model in the role of a critical reviewer and asks it to find a flaw, focusing on common error categories such as misread quantities, unit mismatches, arithmetic slips, invalid assumptions, or missing constraints. To encourage diversity across refuters without changing the underlying task, refuters cycle through three emphasis instructions: checking for unit/quantity misreads, checking algebra or arithmetic, and checking whether all constraints were considered. Each refuter output must include an “ERROR_PROB” between 0 and 1 and a one-sentence “REASON”. We parse the error probabilities p_{i,1}, …, p_{i,k} and define the falsification survival score as:\n\nF_i = 1 − (1/k) * sum_{j=1..k} p_{i,j}.\n\nThus F_i is higher when refuters assign low error probability and lower when refuters find convincing reasons the solution may be wrong. Refuter decoding uses stochastic sampling (temperature 0.7) to promote diverse critiques.\n\n4) Anti-verbosity length penalty. Let t_i be the token count of the forward rationale text r_i as computed by the model’s tokenizer. FAB-SC computes an external penalty:\n\nL_i = exp(−lambda_length * t_i / tokens0).\n\nThis term monotonically decreases with rationale length. In the executed configuration, tokens0 is a reference length (200 tokens) and lambda_length is a small positive coefficient (0.001).\n\n5) Importance-weighted aggregation. FAB-SC combines the three signals into a nonnegative reliability weight:\n\nw_i = (B_i^alpha) * (F_i^beta) * L_i,\n\nwhere alpha and beta are nonnegative exponents controlling the influence of B-check and F-check signals. FAB-SC then aggregates answers by summing weights for each distinct candidate answer value a and selecting the answer with maximal total weight:\n\na_hat = argmax over a of sum_{i: a_i = a} w_i.\n\nWhen backsolve and falsification are disabled and L_i is constant across samples, this reduces to unweighted majority vote. The intended benefit is robustness to correlated wrong-majority behavior: if a high-frequency wrong answer tends to fail constraint checks (low B_i) or is easily refuted (low F_i), it should receive lower total weight than a lower-frequency but more reliable answer.\n\nImplementation and logging. Our Hydra-configured inference script executes these steps per question via API calls, saves per-question results in JSONL (including forward rationales, verification responses, scores, and weights), and logs cumulative accuracy to Weights and Biases (WandB). This design makes it possible to compute additional diagnostics post hoc from saved artifacts, even though the present pilot reports only accuracy and runtime summary statistics.",
+    "experimental_setup": "We evaluate FAB-SC as an inference-only replacement for standard self-consistency on grade-school arithmetic word problems. The experiments are designed to isolate the effect of adding prompt-time verification and importance weighting, holding constant the base model and the forward-sampling budget.\n\nDatasets and evaluation slices. We use GSM8K (main configuration) and SVAMP, both widely used for arithmetic word-problem evaluation in the CoT and SC literature [@wei-2022-chain; @wang-2022-self]. Datasets are loaded using the HuggingFace datasets library. For GSM8K, gold answers are extracted from the dataset’s canonical answer format by matching the “#### X” pattern; for SVAMP, gold answers are read as numeric values. To keep the verification-heavy method computationally feasible, we follow the run configurations and evaluate dataset prefixes: the first 200 questions of the GSM8K test split and the first 300 questions of the SVAMP test split.\n\nModel and prompting. All runs use GPT-4o (API model identifier gpt-4o-2024-08-06) as the base LLM for both generation and verification. Forward prompts ask for step-by-step solutions. Backsolve prompts ask for constraint-based verification of a proposed answer, returning CONFIDENCE and PASS/FAIL. Falsification prompts ask a critical reviewer to identify flaws and return ERROR_PROB and a one-sentence reason.\n\nMethods compared. We compare two inference-time aggregation methods:\n\n1) Self-Consistency baseline (SC). For each question, sample m forward CoT solutions and return the most frequent extracted answer (majority vote), following the standard SC procedure [@wang-2022-self].\n\n2) FAB-SC (proposed). Sample the same m forward solutions, compute per-sample backsolve and falsification signals, apply a length penalty, and aggregate answers by summing importance weights.\n\nDecoding budgets and hyperparameters. Both methods use the same forward-sampling budget m = 8 completions per question, with temperature 0.7 and max_tokens 512 per forward completion. For FAB-SC, backsolve verification is enabled with one call per forward sample (temperature 0.3, max_tokens 512). Falsification is enabled with k = 3 refuter calls per forward sample (temperature 0.7, max_tokens 256). Aggregation hyperparameters are fixed to alpha = 1.0, beta = 1.0, lambda_length = 0.001, and tokens0 = 200.\n\nAnswer extraction and correctness. Model outputs are mapped to numeric answers with a deterministic extractor that searches for common answer patterns (“The answer is X”, “Therefore X”, “#### X”, “Final answer: X”), and otherwise falls back to the last number in the completion. Extracted answers are stored as floats. Inference correctness in the executed script is computed via an absolute tolerance check: a prediction is marked correct if abs(predicted − gold) < 1e-6. This criterion is applied identically to FAB-SC and SC.\n\nLogging and artifacts. The inference script logs per-question correctness and cumulative accuracy to WandB, and writes all per-question data to a results.jsonl file. A separate evaluation script fetches WandB run summaries (or local metrics as fallback) and generates comparison plots. Reported runtimes are the wall-clock runtimes recorded in the WandB run summaries for the full end-to-end evaluation under each method and dataset slice.",
+    "results": "This section reports the pilot results logged by the executed runs for FAB-SC and the SC baseline on GSM8K (first 200 test examples) and SVAMP (first 300 test examples). All results use GPT-4o with a matched forward-sampling budget of m = 8. We report accuracy, counts of correct predictions, and end-to-end wall-clock runtime as recorded in the run summaries.\n\n![Cumulative accuracy over evaluation questions for an individual run; higher values indicate better performance.](images/accuracy_progress.pdf){#fig:accuracy-progress}\n\n![Accuracy comparison across runs; higher values indicate better performance.](images/comparison_accuracy.pdf){#fig:comparison-accuracy}\n\n![Overlay of cumulative accuracy progress across runs; higher values indicate better performance.](images/comparison_accuracy_progress.pdf){#fig:comparison-accuracy-progress}\n\nGSM8K pilot (first 200 test questions). Under SC majority vote, accuracy is 0.810, corresponding to 162 correct out of 200. Under FAB-SC, accuracy is 0.785, corresponding to 157 correct out of 200. The absolute difference (FAB-SC minus SC) is −0.025, which equals 5 fewer correct predictions in this slice. The evaluation pipeline logs cumulative accuracy across the question index; an example of this trace is provided in @fig:accuracy-progress, and the overlay view used for comparison is shown in @fig:comparison-accuracy-progress.\n\nSVAMP pilot (first 300 test questions). Under SC, accuracy is 0.8433, corresponding to 253 correct out of 300. Under FAB-SC, accuracy is 0.8533, corresponding to 256 correct out of 300. The absolute difference is +0.0100, which equals 3 additional correct predictions in this slice. The across-run bar summary in @fig:comparison-accuracy reflects this small improvement.\n\nRuntime overhead. FAB-SC substantially increases end-to-end evaluation runtime relative to SC. On GSM8K, the SC run reports a runtime of 1,164 seconds, while FAB-SC reports 20,587 seconds, approximately 17.7 times slower. On SVAMP, SC reports 1,548 seconds, while FAB-SC reports 27,764 seconds, approximately 17.9 times slower. This overhead is consistent with FAB-SC’s call structure: for each of the m forward samples, FAB-SC adds one backsolve verification call and k falsification calls, so the number of model invocations per question increases from m (SC) to (1 + 1 + k) * m (FAB-SC); with k = 3, this equals 5m invocations.\n\nInterpretation and limitations supported by the logged metrics. The pilots demonstrate that adding prompt-time verification to SC is not uniformly beneficial under the fixed prompts and hyperparameters used here. FAB-SC slightly improves SVAMP accuracy but degrades GSM8K accuracy, while introducing a large runtime cost. The current logged summaries focus on aggregate accuracy and runtime; they do not yet include mechanism-level diagnostics such as the rate of correcting wrong-majority SC outcomes, the distribution of per-sample weights w_i for correct versus incorrect candidates, or compute-normalized accuracy measured in generated tokens. Consequently, within this pilot evidence, the main supported conclusions are (i) FAB-SC can change accuracy in either direction depending on dataset, and (ii) the compute cost increase is large and must be justified by sufficiently consistent accuracy gains or by future compute-aware variants.",
+    "conclusion": "We examined a key weakness of self-consistency: treating agreement among sampled chain-of-thought solutions as evidence of correctness can fail when samples share correlated reasoning errors, producing a confident wrong majority. To address this failure mode without training an external verifier, we proposed FAB-SC, a prompt-only augmentation to SC that attaches two structured verification signals to each sampled solution. A backsolve plug-back check estimates whether the proposed answer satisfies explicit problem constraints, while an adversarial falsification ensemble estimates “survival under refutation” by attempting to find concrete flaws. FAB-SC combines these signals with an external length penalty into per-sample reliability weights and aggregates answers through importance-weighted voting.\n\nInference-only pilot experiments with GPT-4o under a matched forward-sampling budget (m = 8) show mixed outcomes. On SVAMP (first 300 test items), FAB-SC slightly improves accuracy from 0.8433 to 0.8533. On GSM8K (first 200 test items), FAB-SC reduces accuracy from 0.810 to 0.785. The method also increases end-to-end runtime by roughly 18x in these runs, consistent with the additional verification calls per forward sample.\n\nTaken together, the results suggest that prompt-only verification using the same base model is a delicate intervention: it can provide useful signals on some distributions but can also mis-rank candidates and negate the benefits of self-ensembling, all while imposing substantial compute costs. Future work should prioritize (i) computing mechanism-level diagnostics from saved artifacts (for example, how often FAB-SC overturns an incorrect SC majority), (ii) calibrating and stress-testing verification prompts to reduce systematic self-verification bias, and (iii) integrating compute-aware policies, including early-stopping ideas developed for SC [@ma-2024-escape], to make verification-augmented aggregation practically viable."
+  },
+  "references_bib": "@article{chiout-2024-reprompting,\n author = {Anis Chiout and Agnès Tempez and Thomas Carlier and Marc Chaigneau and Fabian Cadiz and Alistair Rowe and Biyuan Zheng and Anlian Pan and Marco Pala and Fabrice Oehler and Abdelkarim Ouerghi and Julien Chaste},\n title = {Reprompting: Automated Chain-of-Thought Prompt Inference Through Gibbs Sampling},\n year = {2024}\n}\n\n@article{hua-2023-compositional,\n author = {Haocheng Hua and Jie Xu},\n title = {Compositional Semantic Parsing with Large Language Models},\n year = {2023}\n}\n\n@article{jackman-2024-autoformalize,\n author = {James A. G. Jackman and Evgenya L. Shkolnik and R. O. Parke Loyd and Tyler Richey-Yowell and Joe Llama and David Boyd and Bob Buchheim and David Iadevaia and Jack Martin and Forrest Sims and Gary Walker and John Wetmore},\n title = {Autoformalize Mathematical Statements by Symbolic Equivalence and Semantic Consistency},\n year = {2024}\n}\n\n@article{liu-2023-least,\n author = {Hao Liu and Huimin Ma and Tianyu Hu},\n title = {Least-to-Most Prompting Enables Complex Reasoning in Large Language Models},\n year = {2023}\n}\n\n@article{ma-2024-escape,\n author = {Mulei Ma and Chenyu Gong and Liekang Zeng and Yang Yang and Liantao Wu},\n title = {Escape Sky-high Cost: Early-stopping Self-Consistency for Multi-step Reasoning},\n year = {2024}\n}\n\n@article{navayazdani-2024-metacognitive,\n author = {Esfandiar Nava-Yazdani},\n title = {Metacognitive Capabilities of LLMs: An Exploration in Mathematical Problem Solving},\n year = {2024}\n}\n\n@article{wang-2022-self,\n author = {Xuezhi Wang and Jason Wei and Dale Schuurmans and Quoc Le and Ed Chi and Sharan Narang and Aakanksha Chowdhery and Denny Zhou},\n title = {Self-Consistency Improves Chain of Thought Reasoning in Language Models},\n year = {2022}\n}\n\n@article{wei-2022-chain,\n author = {Jason Wei and Xuezhi Wang and Dale Schuurmans and Maarten Bosma and Brian Ichter and Fei Xia and Ed Chi and Quoc Le and Denny Zhou},\n title = {Chain-of-Thought Prompting Elicits Reasoning in Large Language Models},\n year = {2022}\n}",
+  "latex_text": "%  LaTeX support: latex@mdpi.com \n%  For support, please attach all files needed for compiling as well as the log file, and specify your operating system, LaTeX version, and LaTeX editor.\n\n%=================================================================\n\\documentclass[journal,article,submit,pdftex,moreauthors]{Definitions/mdpi}\n\n%=================================================================\n% MDPI internal commands - do not modify\n\\firstpage{1} \n\\makeatletter \n\\setcounter{page}{\\@firstpage} \n\\makeatother\n\\pubvolume{1}\n\\issuenum{1}\n\\articlenumber{0}\n\\pubyear{2026}\n\\copyrightyear{2026}\n%\\externaleditor{Firstname Lastname} % More than 1 editor, please add `` and '' before the last editor name\n\\datereceived{ } \n\\daterevised{ } % Comment out if no revised date\n\\dateaccepted{ } \n\\datepublished{ } \n%\\datecorrected{} % For corrected papers: \"Corrected: XXX\" date in the original paper.\n%\\dateretracted{} % For retracted papers: \"Retracted: XXX\" date in the original paper.\n%\\doinum{} % Used for some special journals, like molbank\n%\\pdfoutput=1 % Uncommented for upload to arXiv.org\n%\\CorrStatement{yes}  % For updates\n%\\longauthorlist{yes} % For many authors that exceed the left citation part\n%\\IsAssociation{yes} % For association journals\n\n%=================================================================\n% Add packages and commands here. The following packages are loaded in our class file: fontenc, inputenc, calc, indentfirst, fancyhdr, graphicx, epstopdf, lastpage, ifthen, float, amsmath, amssymb, lineno, setspace, enumitem, mathpazo, booktabs, titlesec, etoolbox, tabto, xcolor, colortbl, soul, multirow, microtype, tikz, totcount, changepage, attrib, upgreek, array, tabularx, pbox, ragged2e, tocloft, marginnote, marginfix, enotez, amsthm, natbib, hyperref, cleveref, scrextend, url, geometry, newfloat, caption, draftwatermark, seqsplit\n% cleveref: load \\crefname definitions after \\begin{document}\n\n%=================================================================\n% Please use the following mathematics environments: Theorem, Lemma, Corollary, Proposition, Characterization, Property, Problem, Example, ExamplesandDefinitions, Hypothesis, Remark, Definition, Notation, Assumption\n%% For proofs, please use the proof environment (the amsthm package is loaded by the MDPI class).\n\n%=================================================================\n% Full title of the paper (Capitalized)\n\\Title{Falsification-Augmented Bidirectional Self-Consistency for Robust Aggregation under Correlated Reasoning Errors}\n\n% Author Orchid ID: enter ID or remove command\n\\newcommand{\\orcidauthorA}{0000-0000-0000-000X} % Add \\orcidA{} behind the author's name\n%\\newcommand{\\orcidauthorB}{0000-0000-0000-000X} % Add \\orcidB{} behind the author's name\n\n% Authors, for the paper (add full first names)\n\\Author{Firstname Lastname $^{1}$\\orcidA{}, Firstname Lastname $^{2}$ and Firstname Lastname $^{2,}$*}\n\n%\\longauthorlist{yes}\n\n% MDPI internal command: Authors, for metadata in PDF\n\\AuthorNames{Firstname Lastname, Firstname Lastname and Firstname Lastname}\n\n% Affiliations / Addresses (Add [1] after \\address if there is only one affiliation.)\n\\address{%\n$^{1}$ \\quad Affiliation 1; e-mail@e-mail.com\\\\\n$^{2}$ \\quad Affiliation 2; e-mail@e-mail.com}\n\n% Contact information of the corresponding author\n\\corres{Correspondence: e-mail@e-mail.com; Tel.: (optional; include country code; if there are multiple corresponding authors, add author initials) +xx-xxxx-xxx-xxxx (F.L.)}\n\n% Current address and/or shared authorship\n%\\firstnote{Current address: Affiliation.}\n% Current address should not be the same as any items in the Affiliation section.\n\n%\\secondnote{These authors contributed equally to this work.}\n% The commands \\thirdnote{} till \\eighthnote{} are available for further notes.\n\n%\\simplesumm{} % Simple summary\n\n%\\conference{} % An extended version of a conference paper\n\n% Abstract (Do not insert blank lines, i.e. \\\\)\n\\abstract{Self-Consistency (SC) improves chain-of-thought (CoT) reasoning by sampling multiple solutions and selecting the most frequent answer, implicitly treating answer agreement as evidence of correctness. This premise breaks when a single model's samples share correlated mistakes, yielding a high-agreement but wrong majority. We study whether purely prompt-time interventions can make SC more robust without training an external verifier. We propose Falsification-Augmented Bidirectional Self-Consistency (FAB-SC), which attaches to each sampled solution two complementary reliability signals produced by the same base model: a backsolve ``plug-back'' verification that checks whether a proposed answer satisfies the problem's explicit constraints, and a small stochastic refuter ensemble that attempts to falsify the solution and outputs an estimated probability of error. We additionally apply a length-based penalty to reduce verbosity-driven scoring artifacts, and aggregate answers via importance-weighted voting. In inference-only pilots with GPT-4o and a matched forward-sampling budget ($m=8$), FAB-SC yields mixed outcomes: on SVAMP (first 300 test items) it slightly improves accuracy ($0.853$ vs $0.843$ for SC), while on GSM8K (first 200 test items) it reduces accuracy ($0.785$ vs $0.810$) and increases wall-clock runtime by about $18\\times$. These results clarify both the promise and the pitfalls of prompt-only verification when the model ``grades its own work,'' and motivate more calibrated verification signals and compute-aware variants.}\n\n% Keywords\n\\keyword{keyword 1; keyword 2; keyword 3 (List three to ten pertinent keywords specific to the article; yet reasonably common within the subject discipline.)}\n\n% The fields PACS, MSC, and JEL may be left empty or commented out if not applicable\n%\\PACS{J0101}\n%\\MSC{}\n%\\JEL{}\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n% Only for the journal Diversity\n%\\LSID{\\url{http://}}\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n% Only for the journal Applied Sciences\n%\\featuredapplication{Authors are encouraged to provide a concise description of the specific application or a potential application of the work. This section is not mandatory.}\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n% Only for the journal Data\n%\\dataset{DOI number or link to the deposited data set if the data set is published separately. If the data set shall be published as a supplement to this paper, this field will be filled by the journal editors. In this case, please submit the data set as a supplement.}\n%\\datasetlicense{License under which the data set is made available (CC0, CC-BY, CC-BY-SA, CC-BY-NC, etc.)}\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n% Only for the journal BioTech, Fishes, Neuroimaging and Toxins\n%\\keycontribution{The breakthroughs or highlights of the manuscript. Authors can write one or two sentences to describe the most important part of the paper.}\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n% Only for the journal Encyclopedia\n%\\encyclopediadef{For entry manuscripts only: please provide a brief overview of the entry title instead of an abstract.}\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n% Different journals have different requirements. Please check the specific journal guidelines in the \"Instructions for Authors\" on the journal's official website.\n%\\addhighlights{yes}\n%\\renewcommand{\\addhighlights}{%\n%\n%\\noindent The goal is to increase the discoverability and readability of the article via search engines and other scholars. Highlights should not be a copy of the abstract, but a simple text allowing the reader to quickly and simplified find out what the article is about and what can be cited from it. Each of these parts should be devoted up to 2~bullet points.\\vspace{3pt}\\\\\n%\\textbf{What are the main findings?}\n% \\begin{itemize}[labelsep=2.5mm,topsep=-3pt]\n% \\item First bullet.\n% \\item Second bullet.\n% \\end{itemize}\\vspace{3pt}\n%\\textbf{What are the implications of the main findings?}\n% \\begin{itemize}[labelsep=2.5mm,topsep=-3pt]\n% \\item First bullet.\n% \\item Second bullet.\n% \\end{itemize}\n%}\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\\begin{document}\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\\section{Introduction}\n\nLarge language models (LLMs) can often be induced to perform multi-step reasoning by producing intermediate natural-language explanations, commonly termed chain-of-thought (CoT) \\cite{wei-2022-chain}. In arithmetic word problems, CoT can make implicit intermediate computations explicit, improving accuracy relative to direct answer-only prompting. Yet CoT does not eliminate brittleness: a single decoding pass can be derailed by small but consequential mistakes such as an arithmetic slip, a unit mismatch, or an incorrect mapping from text to equations. Worse, the generated rationale may remain fluent and coherent despite being wrong, which complicates downstream trust.\n\nSelf-Consistency (SC) addresses this brittleness at inference time by sampling multiple diverse CoT solutions from the same model and aggregating the resulting final answers, typically by majority vote \\cite{wang-2022-self}. SC can be viewed as a self-ensemble that marginalizes over stochastic reasoning paths: instead of trusting a single trajectory, it trusts the most recurrent answer across sampled trajectories.\n\nHowever, SC relies on an informal but consequential assumption: sampled rationales behave like approximately independent evidence for an answer, so that agreement implies correctness. In practice, this assumption can fail in a particularly damaging way. Samples from a single model share parameters, training data priors, and common high-probability heuristics, so their errors are often correlated. If the model systematically misreads a quantity, repeats an incorrect conversion, or applies the same flawed heuristic across samples, then SC can amplify the shared error into a confident wrong majority. This ``high-agreement wrong answer'' failure mode is especially risky in settings where the model's consensus is used as a reliability signal.\n\nHuman problem solvers rarely treat repeated reasoning in the same direction as sufficient verification. Instead, they often use complementary checks that are intentionally different from the original reasoning direction: attempting to falsify the solution by searching for a counterargument, and verifying the proposed answer by plugging it back into the explicit constraints of the problem statement. This paper asks whether these habits can be approximated at prompt time using only a single base LLM, without training a separate verifier or using external tools.\n\nWe propose Falsification-Augmented Bidirectional Self-Consistency (FAB-SC), a prompt-only decoding and aggregation procedure that extends SC with two structured checks per forward sample. First, a backsolve or plug-back check conditions on the proposed final answer and forces the model to verify constraint satisfaction rather than re-solve freely. Second, an adversarial falsification ensemble runs several short ``refuter'' prompts that explicitly try to find concrete flaws (misread quantities, invalid algebra, arithmetic slips, or missing constraints) and output an estimated probability that the solution is wrong. FAB-SC combines these two verification signals with an external, token-count-based length penalty designed to reduce the known confound between verbosity and self-scoring. The final answer is selected by an importance-weighted vote rather than an unweighted majority.\n\nWe evaluate FAB-SC as a drop-in replacement for SC under a matched forward-sampling budget using GPT-4o. The experiments are inference-only pilot runs on two standard arithmetic word-problem benchmarks used in prior CoT and SC work: GSM8K and SVAMP \\cite{wei-2022-chain,wang-2022-self}. To control cost, we follow the run configurations and evaluate on prefixes of the official test splits: the first 200 GSM8K test items and the first 300 SVAMP test items. The results show mixed outcomes. On GSM8K ($N=200$), FAB-SC underperforms SC ($0.785$ vs $0.810$). On SVAMP ($N=300$), FAB-SC slightly improves over SC ($0.853$ vs $0.843$). Across both datasets, FAB-SC incurs substantial additional wall-clock runtime, about $18\\times$ in these runs, reflecting the additional verification calls per forward sample.\n\nThese findings sharpen the empirical question underlying robust inference-time aggregation: prompt-only verification using the same base model may provide useful signals on some distributions, but it can also mis-rank candidates and negate the benefits of self-ensembling on others. Equally importantly, the compute overhead is large, making compute-aware evaluation essential.\n\nOur contributions are:\n\\begin{itemize}\n\\item \\textbf{FAB-SC procedure.} We propose FAB-SC, a prompt-only augmentation to self-consistency that combines (i) a backsolve, constraint-based verification signal and (ii) a stochastic falsification ensemble into per-sample reliability weights for importance-weighted aggregation.\n\\item \\textbf{Reproducible inference implementation.} We provide an end-to-end inference implementation (Hydra-configured) that records forward rationales, verification outputs, derived scores, and aggregated predictions, enabling reproducible analyses under matched forward-sampling budgets.\n\\item \\textbf{Controlled pilot evaluation.} We report controlled pilot results on GSM8K (first 200 test items) and SVAMP (first 300 test items) comparing FAB-SC to standard SC with the same forward-sampling budget, and we quantify the associated wall-clock runtime overhead.\n\\end{itemize}\n\nSeveral follow-up directions are suggested by these pilots. First, evaluating the hypothesized mechanism directly requires metrics beyond aggregate accuracy, such as the rate at which FAB-SC corrects cases where SC yields a wrong majority. Second, the verification prompts and parsing format may need better calibration to avoid systematic self-verification biases. Third, given the substantial overhead, compute-reduction strategies such as early stopping for SC \\cite{ma-2024-escape} become even more relevant when verification is introduced, motivating hybrids that adaptively allocate either forward samples or verification calls.\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\\section{Related Work}\n\nChain-of-thought prompting established that providing intermediate reasoning steps in the prompt can substantially improve multi-step performance on arithmetic reasoning benchmarks \\cite{wei-2022-chain}. In our setting, CoT is not the endpoint but the substrate: FAB-SC assumes CoT-style forward reasoning traces exist and uses them as candidates for aggregation and verification. A key limitation of CoT prompting highlighted by subsequent practice is that fluent rationales may still contain subtle mistakes, so additional reliability mechanisms are needed when outputs are used in high-stakes settings.\n\nSelf-consistency is a prominent inference-time method that explicitly uses redundancy to improve reliability: it samples multiple diverse CoT completions and aggregates the final answers, most commonly by majority vote \\cite{wang-2022-self}. SC's implicit statistical intuition is that agreement across diverse reasoning paths is evidence of correctness. FAB-SC builds directly on SC but focuses on the specific regime where SC's agreement heuristic can fail: when the sampled set is not diverse in the relevant error dimensions and instead contains correlated mistakes. Under correlated errors, majority vote can be overconfident and systematically wrong.\n\nA practical limitation of SC is its linear scaling of inference cost with the number of samples. Recent work therefore explores compute-aware variants, including early-stopping schemes that terminate sampling once agreement is deemed sufficient \\cite{ma-2024-escape}. This line of work is complementary to FAB-SC in two ways. First, our method increases per-sample compute by adding verification calls, so any deployment-level viability depends even more strongly on compute management. Second, early-stopping ideas provide a concrete template for future FAB-SC variants: one can imagine stopping either forward sampling or verification when additional evidence is unlikely to change the weighted vote.\n\nFinally, FAB-SC relates to prompt-only self-evaluation and critique methods in which the same model is asked to score or critique its own outputs. FAB-SC differs from an undifferentiated self-score by (i) enforcing a constrained backsolve procedure that is explicitly framed as constraint checking rather than free re-solving, and (ii) using multiple stochastic refuters that aim to produce negative evidence (``find a flaw'') rather than a single confidence statement. Nevertheless, because FAB-SC still uses the same base model for both generation and verification, its scores can inherit shared biases, and our pilot results illustrate that such prompt-only verification is not uniformly beneficial even when designed to be complementary to forward solving.\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\\section{Background}\n\nThis work studies inference-time aggregation for short arithmetic word problems, following the evaluation paradigm commonly used in CoT and self-consistency studies \\cite{wei-2022-chain,wang-2022-self}. Each example consists of a natural-language question and a single numeric gold answer, and performance is measured by answer accuracy after deterministic extraction of a numeric prediction.\n\n\\subsection{Problem setting and notation}\nLet $x$ denote a word-problem question and let $y^*$ denote its gold numeric answer. A base LLM is queried with a prompt that requests step-by-step reasoning and a final numeric answer. A single model completion contains a rationale $r$ and an answer string from which we extract a numeric answer $a$ via a deterministic parser. For a fixed question $x$, standard self-consistency draws $m$ stochastic generations, yielding pairs $(r_i, a_i)$ for $i \\in \\{1,\\dots,m\\}$, and predicts the aggregated answer $\\hat{a}$ as the most frequent value among $\\{a_i\\}$ (majority vote) \\cite{wang-2022-self}.\n\n\\subsection{Correlated errors and the limits of agreement}\nSC's empirical success is often attributed to diversity across sampled reasoning paths: if errors are uncorrelated, wrong answers are less likely to recur, while correct answers recur more frequently. In a single-model setting, however, the distribution over sampled rationales can exhibit structured correlations. Even with stochastic decoding, the model's highest-probability interpretations of an ambiguous statement, its preferred solution templates, and its characteristic arithmetic slips can recur across samples. Under such correlations, agreement becomes an unreliable proxy for correctness, and SC can converge to a wrong majority.\n\n\\subsection{Prompt-time verification as additional evidence}\nA natural response is to attach to each candidate $(r_i, a_i)$ an estimate of reliability computed at prompt time. FAB-SC uses two bounded scalar scores in $[0,1]$. The backsolve score $B_i$ is intended to measure whether the proposed answer $a_i$ satisfies constraints implied by $x$ when checked explicitly. The falsification score $F_i$ is intended to measure how well the solution withstands targeted attempts to find a concrete error. Both signals are produced by the same base model used for forward sampling.\n\n\\subsection{Length confounding and external regularization}\nPrompt-based self-evaluation can be influenced by superficial correlates of apparent quality, including fluency and verbosity. Because FAB-SC relies on model-generated scores, it adds an explicit length penalty $L_i$ computed outside the model using token counts. This penalty is not a correctness guarantee; rather, it is a simple regularizer intended to reduce the influence of ``verbosity-as-confidence'' artifacts in the final weighted vote.\n\nTaken together, these components shift aggregation from unweighted counting to importance weighting: rather than treating each forward sample as an equal vote, FAB-SC treats each sample as a vote weighted by an estimated reliability signal derived from constraint checking, survival under refutation, and a length-based penalty. The next section specifies the procedure precisely as implemented in our inference code.\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\\section{Method}\n\nFAB-SC is an inference-time procedure that augments self-consistency with two verification channels and an external length-based regularizer, and then aggregates candidate answers by an importance-weighted vote. The method is prompt-only in the sense that it uses the same base LLM for forward generation, backsolve verification, and falsification attempts; no fine-tuning or external verifier is introduced.\n\nFor each question $x$, FAB-SC performs the following steps.\n\n\\begin{algorithm}\n\\caption{Falsification-Augmented Bidirectional Self-Consistency (FAB-SC)}\n\\begin{algorithmic}\n\\State \\textbf{Input:} question $x$, forward sample count $m$, refuter count $k$, exponents $\\alpha,\\beta$, length parameters $\\lambda_{\\text{length}}, t_0$\n\\State Sample $m$ forward CoT solutions; parse numeric answers to obtain candidates $\\{(r_i, a_i)\\}_{i=1}^m$\n\\State Discard candidates with unparsable $a_i$\n\\For{$i=1$ to $m$}\n\\State Backsolve-check prompt with $(x, r_i, a_i)$; parse $B_i \\in [0,1]$\n\\State Run $k$ refuter prompts with $(x, r_i, a_i)$; parse $\\{p_{i,j}\\}_{j=1}^k$ with $p_{i,j}\\in[0,1]$\n\\State Compute falsification survival $F_i \\leftarrow 1 - \\frac{1}{k}\\sum_{j=1}^k p_{i,j}$\n\\State Compute length penalty $L_i \\leftarrow \\exp\\!\\big(-\\lambda_{\\text{length}}\\, t_i / t_0\\big)$\n\\State Compute weight $w_i \\leftarrow (B_i^{\\alpha})(F_i^{\\beta}) L_i$\n\\EndFor\n\\State Aggregate by weighted vote: $\\hat{a} \\leftarrow \\arg\\max_{a} \\sum_{i: a_i=a} w_i$\n\\State \\textbf{Output:} aggregated answer $\\hat{a}$\n\\end{algorithmic}\n\\end{algorithm}\n\n\\subsection{Forward solve sampling}\nWe construct a CoT prompt that asks the model to solve the problem step by step. We sample $m$ forward completions using stochastic decoding, obtaining texts that contain a rationale $r_i$ and (after parsing) a numeric answer $a_i$. This matches the standard SC setup except that FAB-SC will later weight samples rather than count them equally \\cite{wang-2022-self}. Samples whose completions do not yield a parsable numeric answer are discarded.\n\n\\subsection{Backsolve (plug-back) verification}\nFor each remaining pair $(r_i, a_i)$, we create a verification prompt that includes the original question $x$, the proposed numeric answer $a_i$, and the proposed rationale $r_i$ as context. The prompt instructs the model not to re-solve freely, but to (i) identify key constraints from the problem statement, (ii) plug the proposed answer into those constraints, and (iii) recompute derived quantities to ensure consistency. The model is required to return a numeric field ``CONFIDENCE'' between $0$ and $1$ and a ``VERDICT'' field (PASS or FAIL). We parse the CONFIDENCE value as $B_i$, clipping to $[0,1]$ if needed. In the current implementation, backsolve decoding uses a lower temperature ($0.3$) than forward sampling to reduce variability.\n\n\\subsection{Adversarial falsification ensemble}\nFor each $(r_i, a_i)$, we run $k$ short refuter generations. Each refuter prompt puts the model in the role of a critical reviewer and asks it to find a flaw, focusing on common error categories such as misread quantities, unit mismatches, arithmetic slips, invalid assumptions, or missing constraints. To encourage diversity across refuters without changing the underlying task, refuters cycle through three emphasis instructions: checking for unit/quantity misreads, checking algebra or arithmetic, and checking whether all constraints were considered. Each refuter output must include an ``ERROR\\_PROB'' between $0$ and $1$ and a one-sentence ``REASON''. We parse the error probabilities $p_{i,1},\\dots,p_{i,k}$ and define the falsification survival score as\n\\[\nF_i = 1 - \\frac{1}{k}\\sum_{j=1}^k p_{i,j}.\n\\]\nThus $F_i$ is higher when refuters assign low error probability and lower when refuters find convincing reasons the solution may be wrong. Refuter decoding uses stochastic sampling (temperature $0.7$) to promote diverse critiques.\n\n\\subsection{Anti-verbosity length penalty}\nLet $t_i$ be the token count of the forward rationale text $r_i$ as computed by the model's tokenizer. FAB-SC computes an external penalty\n\\[\nL_i = \\exp\\!\\big(-\\lambda_{\\text{length}}\\, t_i / t_0\\big).\n\\]\nThis term monotonically decreases with rationale length. In the executed configuration, $t_0=200$ tokens and $\\lambda_{\\text{length}}=0.001$.\n\n\\subsection{Importance-weighted aggregation}\nFAB-SC combines the three signals into a nonnegative reliability weight\n\\[\nw_i = (B_i^{\\alpha})(F_i^{\\beta}) L_i,\n\\]\nwhere $\\alpha$ and $\\beta$ are nonnegative exponents controlling the influence of B-check and F-check signals. FAB-SC then aggregates answers by summing weights for each distinct candidate answer value $a$ and selecting the answer with maximal total weight:\n\\[\n\\hat{a} = \\arg\\max_{a} \\sum_{i: a_i=a} w_i.\n\\]\nWhen backsolve and falsification are disabled and $L_i$ is constant across samples, this reduces to unweighted majority vote. The intended benefit is robustness to correlated wrong-majority behavior: if a high-frequency wrong answer tends to fail constraint checks (low $B_i$) or is easily refuted (low $F_i$), it should receive lower total weight than a lower-frequency but more reliable answer.\n\n\\subsection{Implementation and logging}\nOur Hydra-configured inference script executes these steps per question via API calls, saves per-question results in JSONL (including forward rationales, verification responses, scores, and weights), and logs cumulative accuracy to Weights and Biases (WandB). This design makes it possible to compute additional diagnostics post hoc from saved artifacts, even though the present pilot reports only accuracy and runtime summary statistics.\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\\section{Experimental Setup}\n\nWe evaluate FAB-SC as an inference-only replacement for standard self-consistency on grade-school arithmetic word problems. The experiments are designed to isolate the effect of adding prompt-time verification and importance weighting, holding constant the base model and the forward-sampling budget.\n\n\\subsection{Datasets and evaluation slices}\nWe use GSM8K (main configuration) and SVAMP, both widely used for arithmetic word-problem evaluation in the CoT and SC literature \\cite{wei-2022-chain,wang-2022-self}. Datasets are loaded using the HuggingFace datasets library. For GSM8K, gold answers are extracted from the dataset's canonical answer format by matching the ``\\texttt{\\#\\#\\#\\# X}'' pattern; for SVAMP, gold answers are read as numeric values. To keep the verification-heavy method computationally feasible, we follow the run configurations and evaluate dataset prefixes: the first $200$ questions of the GSM8K test split and the first $300$ questions of the SVAMP test split.\n\n\\subsection{Model and prompting}\nAll runs use GPT-4o (API model identifier \\texttt{gpt-4o-2024-08-06}) as the base LLM for both generation and verification. Forward prompts ask for step-by-step solutions. Backsolve prompts ask for constraint-based verification of a proposed answer, returning CONFIDENCE and PASS/FAIL. Falsification prompts ask a critical reviewer to identify flaws and return ERROR\\_PROB and a one-sentence reason.\n\n\\subsection{Methods compared}\nWe compare two inference-time aggregation methods.\n\n\\subsection{Self-Consistency baseline}\nFor each question, sample $m$ forward CoT solutions and return the most frequent extracted answer (majority vote), following the standard SC procedure \\cite{wang-2022-self}.\n\n\\subsection{FAB-SC}\nSample the same $m$ forward solutions, compute per-sample backsolve and falsification signals, apply a length penalty, and aggregate answers by summing importance weights.\n\n\\subsection{Decoding budgets and hyperparameters}\nBoth methods use the same forward-sampling budget $m=8$ completions per question, with temperature $0.7$ and $\\texttt{max\\_tokens}=512$ per forward completion. For FAB-SC, backsolve verification is enabled with one call per forward sample (temperature $0.3$, $\\texttt{max\\_tokens}=512$). Falsification is enabled with $k=3$ refuter calls per forward sample (temperature $0.7$, $\\texttt{max\\_tokens}=256$). Aggregation hyperparameters are fixed to $\\alpha=1.0$, $\\beta=1.0$, $\\lambda_{\\text{length}}=0.001$, and $t_0=200$.\n\n\\subsection{Answer extraction and correctness}\nModel outputs are mapped to numeric answers with a deterministic extractor that searches for common answer patterns (``The answer is $X$'', ``Therefore $X$'', ``\\texttt{\\#\\#\\#\\# X}'', ``Final answer: $X$''), and otherwise falls back to the last number in the completion. Extracted answers are stored as floats. Inference correctness in the executed script is computed via an absolute tolerance check: a prediction is marked correct if $|\\text{predicted}-\\text{gold}|<10^{-6}$. This criterion is applied identically to FAB-SC and SC.\n\n\\subsection{Logging and artifacts}\nThe inference script logs per-question correctness and cumulative accuracy to WandB, and writes all per-question data to a \\texttt{results.jsonl} file. A separate evaluation script fetches WandB run summaries (or local metrics as fallback) and generates comparison plots. Reported runtimes are the wall-clock runtimes recorded in the WandB run summaries for the full end-to-end evaluation under each method and dataset slice.\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\\section{Results}\n\nThis section reports the pilot results logged by the executed runs for FAB-SC and the SC baseline on GSM8K (first $200$ test examples) and SVAMP (first $300$ test examples). All results use GPT-4o with a matched forward-sampling budget of $m=8$. We report accuracy, counts of correct predictions, and end-to-end wall-clock runtime as recorded in the run summaries.\n\n\\begin{figure}[H]\n\\centering\n\\includegraphics[width=0.7\\linewidth]{images/accuracy_progress.pdf}\n\\caption{Cumulative accuracy over evaluation questions for an individual run; higher values indicate better performance.}\n\\label{fig:accuracy-progress}\n\\end{figure}\n\n\\begin{figure}[H]\n\\centering\n\\includegraphics[width=0.7\\linewidth]{images/comparison_accuracy.pdf}\n\\caption{Accuracy comparison across runs; higher values indicate better performance.}\n\\label{fig:comparison-accuracy}\n\\end{figure}\n\n\\begin{figure}[H]\n\\centering\n\\includegraphics[width=0.7\\linewidth]{images/comparison_accuracy_progress.pdf}\n\\caption{Overlay of cumulative accuracy progress across runs; higher values indicate better performance.}\n\\label{fig:comparison-accuracy-progress}\n\\end{figure}\n\n\\subsection{GSM8K pilot}\nUnder SC majority vote, accuracy is $0.810$, corresponding to $162$ correct out of $200$. Under FAB-SC, accuracy is $0.785$, corresponding to $157$ correct out of $200$. The absolute difference (FAB-SC minus SC) is $-0.025$, which equals $5$ fewer correct predictions in this slice. The evaluation pipeline logs cumulative accuracy across the question index; an example of this trace is provided in Figure~\\ref{fig:accuracy-progress}, and the overlay view used for comparison is shown in Figure~\\ref{fig:comparison-accuracy-progress}.\n\n\\subsection{SVAMP pilot}\nUnder SC, accuracy is $0.8433$, corresponding to $253$ correct out of $300$. Under FAB-SC, accuracy is $0.8533$, corresponding to $256$ correct out of $300$. The absolute difference is $+0.0100$, which equals $3$ additional correct predictions in this slice. The across-run bar summary in Figure~\\ref{fig:comparison-accuracy} reflects this small improvement.\n\n\\subsection{Runtime overhead}\nFAB-SC substantially increases end-to-end evaluation runtime relative to SC. On GSM8K, the SC run reports a runtime of $1{,}164$ seconds, while FAB-SC reports $20{,}587$ seconds, approximately $17.7\\times$ slower. On SVAMP, SC reports $1{,}548$ seconds, while FAB-SC reports $27{,}764$ seconds, approximately $17.9\\times$ slower. This overhead is consistent with FAB-SC's call structure: for each of the $m$ forward samples, FAB-SC adds one backsolve verification call and $k$ falsification calls, so the number of model invocations per question increases from $m$ (SC) to $(1+1+k)m$ (FAB-SC); with $k=3$, this equals $5m$ invocations.\n\n\\subsection{Interpretation and limitations supported by the logged metrics}\nThe pilots demonstrate that adding prompt-time verification to SC is not uniformly beneficial under the fixed prompts and hyperparameters used here. FAB-SC slightly improves SVAMP accuracy but degrades GSM8K accuracy, while introducing a large runtime cost. The current logged summaries focus on aggregate accuracy and runtime; they do not yet include mechanism-level diagnostics such as the rate of correcting wrong-majority SC outcomes, the distribution of per-sample weights $w_i$ for correct versus incorrect candidates, or compute-normalized accuracy measured in generated tokens. Consequently, within this pilot evidence, the main supported conclusions are (i) FAB-SC can change accuracy in either direction depending on dataset, and (ii) the compute cost increase is large and must be justified by sufficiently consistent accuracy gains or by future compute-aware variants.\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\\section{Discussion}\n\n\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\\section{Conclusions}\n\nWe examined a key weakness of self-consistency: treating agreement among sampled chain-of-thought solutions as evidence of correctness can fail when samples share correlated reasoning errors, producing a confident wrong majority. To address this failure mode without training an external verifier, we proposed FAB-SC, a prompt-only augmentation to SC that attaches two structured verification signals to each sampled solution. A backsolve plug-back check estimates whether the proposed answer satisfies explicit problem constraints, while an adversarial falsification ensemble estimates ``survival under refutation'' by attempting to find concrete flaws. FAB-SC combines these signals with an external length penalty into per-sample reliability weights and aggregates answers through importance-weighted voting.\n\nInference-only pilot experiments with GPT-4o under a matched forward-sampling budget ($m=8$) show mixed outcomes. On SVAMP (first $300$ test items), FAB-SC slightly improves accuracy from $0.8433$ to $0.8533$. On GSM8K (first $200$ test items), FAB-SC reduces accuracy from $0.810$ to $0.785$. The method also increases end-to-end runtime by roughly $18\\times$ in these runs, consistent with the additional verification calls per forward sample.\n\nTaken together, the results suggest that prompt-only verification using the same base model is a delicate intervention: it can provide useful signals on some distributions but can also mis-rank candidates and negate the benefits of self-ensembling, all while imposing substantial compute costs. Future work should prioritize (i) computing mechanism-level diagnostics from saved artifacts (for example, how often FAB-SC overturns an incorrect SC majority), (ii) calibrating and stress-testing verification prompts to reduce systematic self-verification bias, and (iii) integrating compute-aware policies, including early-stopping ideas developed for SC \\cite{ma-2024-escape}, to make verification-augmented aggregation practically viable.\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\\vspace{6pt}\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\\authorcontributions{For research articles with several authors, a short paragraph specifying their individual contributions must be provided. The following statements should be used ``Conceptualization, X.X. and Y.Y.; methodology, X.X.; software, X.X.; validation, X.X., Y.Y. and Z.Z.; formal analysis, X.X.; investigation, X.X.; resources, X.X.; data curation, X.X.; writing---original draft preparation, X.X.; writing---review and editing, X.X.; visualization, X.X.; supervision, X.X.; project administration, X.X.; funding acquisition, Y.Y. All authors have read and agreed to the published version of the manuscript.'', please turn to the  \\href{http://img.mdpi.org/data/contributor-role-instruction.pdf}{CRediT taxonomy} for the term explanation. Authorship must be limited to those who have contributed substantially to the work~reported.}\n\n\\funding{This research received no external funding.}\n\n\\dataavailability{All resources used in this study are openly available at }\n\n\\acknowledgments{In this study, we automatically carried out a series of research processes—from hypothesis formulation to paper writing—using generative AI.}\n\n\\conflictsofinterest{The authors declare no conflicts of interest.}\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%\\isPreprints{}{% This command is only used for ``preprints''.\n\\begin{adjustwidth}{-\\extralength}{0cm}\n%} % If the paper is ``preprints'', please uncomment this parenthesis.\n%\\printendnotes[custom] % Un-comment to print a list of endnotes\n\n\\bibliographystyle{plainnat}\n\\bibliography{references}\n\n\\PublishersNote{}\n%\\isPreprints{}{% This command is only used for ``preprints''.\n\\end{adjustwidth}\n%} % If the paper is ``preprints'', please uncomment this parenthesis.\n\\end{document}\n",
+  "paper_url": null,
+  "full_html": null,
+  "github_pages_url": null,
+  "paper_review_scores": null,
+  "additional_data": null
 }
