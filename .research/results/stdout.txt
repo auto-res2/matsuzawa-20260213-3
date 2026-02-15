@@ -70,3 +70,39 @@ Best baseline: comparative-1-gpt4o-svamp (accuracy=0.8433)
 Gap: 0.0100
 ================================================================================
 === [VISUALIZATION] PASSED at Sun Feb 15 12:47:29 UTC 2026 ===
+=== [VISUALIZATION] Start at Sun Feb 15 13:32:26 UTC 2026 ===
+Evaluating runs: ['comparative-1-gpt4o-gsm8k', 'comparative-1-gpt4o-svamp', 'proposed-gpt4o-gsm8k', 'proposed-gpt4o-svamp']
+Results directory: .research/results
+
+Processing run: comparative-1-gpt4o-gsm8k
+Exported metrics: .research/results/comparative-1-gpt4o-gsm8k/metrics.json
+Generated figure: .research/results/comparative-1-gpt4o-gsm8k/accuracy_progress.pdf
+
+Processing run: comparative-1-gpt4o-svamp
+Exported metrics: .research/results/comparative-1-gpt4o-svamp/metrics.json
+Generated figure: .research/results/comparative-1-gpt4o-svamp/accuracy_progress.pdf
+
+Processing run: proposed-gpt4o-gsm8k
+Exported metrics: .research/results/proposed-gpt4o-gsm8k/metrics.json
+Generated figure: .research/results/proposed-gpt4o-gsm8k/accuracy_progress.pdf
+
+Processing run: proposed-gpt4o-svamp
+Exported metrics: .research/results/proposed-gpt4o-svamp/metrics.json
+Generated figure: .research/results/proposed-gpt4o-svamp/accuracy_progress.pdf
+
+Computing aggregated metrics...
+Saved aggregated metrics: .research/results/comparison/aggregated_metrics.json
+
+Generating comparison figures...
+Generated figure: .research/results/comparison/comparison_accuracy.pdf
+Generated figure: .research/results/comparison/comparison_accuracy_progress.pdf
+
+================================================================================
+EVALUATION SUMMARY
+================================================================================
+Primary metric: accuracy
+Best proposed: proposed-gpt4o-svamp (accuracy=0.8533)
+Best baseline: comparative-1-gpt4o-svamp (accuracy=0.8433)
+Gap: 0.0100
+================================================================================
+=== [VISUALIZATION] PASSED at Sun Feb 15 13:32:37 UTC 2026 ===
