@@ -1,11 +1,28 @@
 """Evaluation script to fetch results from WandB and generate comparison figures."""
 
+# [VALIDATOR FIX - Attempt 1]
+# [PROBLEM]: src.evaluate was called with Hydra-style arguments (key=value) but used argparse expecting --key value format
+# [CAUSE]: Workflow calls "uv run python -u -m src.evaluate results_dir=... run_ids=..." but evaluate.py uses argparse
+# [FIX]: Replace argparse with Hydra to match the calling convention used by main.py and inference.py
+#
+# [OLD CODE]:
+# import argparse
+# def parse_args():
+#     parser = argparse.ArgumentParser(description="Evaluate and compare experiment runs")
+#     parser.add_argument("--results_dir", type=str, required=True, help="Results directory")
+#     parser.add_argument("--run_ids", type=str, required=True, help="JSON list of run IDs")
+#     parser.add_argument("--wandb_entity", type=str, default=None, help="WandB entity")
+#     parser.add_argument("--wandb_project", type=str, default=None, help="WandB project")
+#     return parser.parse_args()
+#
+# [NEW CODE]:
 import os
 import sys
 import json
-import argparse
 from pathlib import Path
 from typing import List, Dict, Optional
+import hydra
+from omegaconf import DictConfig
 import wandb
 import matplotlib
 matplotlib.use('Agg')  # Non-interactive backend
@@ -13,16 +30,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 import pandas as pd
-
-
-def parse_args():
-    """Parse command line arguments."""
-    parser = argparse.ArgumentParser(description="Evaluate and compare experiment runs")
-    parser.add_argument("--results_dir", type=str, required=True, help="Results directory")
-    parser.add_argument("--run_ids", type=str, required=True, help="JSON list of run IDs")
-    parser.add_argument("--wandb_entity", type=str, default=None, help="WandB entity")
-    parser.add_argument("--wandb_project", type=str, default=None, help="WandB project")
-    return parser.parse_args()
 
 
 def fetch_wandb_run(entity: str, project: str, run_id: str) -> Optional[Dict]:
@@ -258,19 +265,19 @@ def compute_aggregated_metrics(all_runs: List[Dict]) -> Dict:
     return aggregated
 
 
-def main():
+@hydra.main(config_path="../config", config_name="config", version_base=None)
+def main(cfg: DictConfig):
     """Main evaluation script."""
-    args = parse_args()
-    
-    results_dir = Path(args.results_dir)
-    run_ids = json.loads(args.run_ids)
+    # Extract parameters from config
+    results_dir = Path(cfg.results_dir)
+    run_ids = json.loads(cfg.run_ids)
     
     print(f"Evaluating runs: {run_ids}")
     print(f"Results directory: {results_dir}")
     
-    # Get WandB credentials from args or environment
-    wandb_entity = args.wandb_entity or os.environ.get("WANDB_ENTITY")
-    wandb_project = args.wandb_project or os.environ.get("WANDB_PROJECT")
+    # Get WandB credentials from config or environment
+    wandb_entity = cfg.get("wandb_entity") or os.environ.get("WANDB_ENTITY")
+    wandb_project = cfg.get("wandb_project") or os.environ.get("WANDB_PROJECT")
     
     if not wandb_entity or not wandb_project:
         print("Warning: WandB entity/project not specified. Will use local metrics only.")
