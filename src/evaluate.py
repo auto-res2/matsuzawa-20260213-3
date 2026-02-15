@@ -32,6 +32,38 @@ import numpy as np
 import pandas as pd
 
 
+def _wandb_to_json_serializable(obj):
+    """Recursively convert WandB objects to JSON-serializable types.
+    
+    Args:
+        obj: WandB object (SummarySubDict, dict, list, etc.)
+        
+    Returns:
+        JSON-serializable Python object
+    """
+    # [VALIDATOR FIX - Attempt 1]
+    # [PROBLEM]: TypeError: Object of type SummarySubDict is not JSON serializable
+    # [CAUSE]: run.summary is a WandB SummarySubDict with nested objects that dict() doesn't recursively convert
+    # [FIX]: Add recursive conversion function to handle all WandB nested objects
+    #
+    # [OLD CODE]:
+    # (No conversion function existed)
+    #
+    # [NEW CODE]:
+    if isinstance(obj, dict):
+        return {k: _wandb_to_json_serializable(v) for k, v in obj.items()}
+    elif isinstance(obj, (list, tuple)):
+        return [_wandb_to_json_serializable(item) for item in obj]
+    elif isinstance(obj, (str, int, float, bool, type(None))):
+        return obj
+    elif hasattr(obj, '__dict__'):
+        # Handle WandB custom objects by converting __dict__ to dict
+        return _wandb_to_json_serializable(obj.__dict__)
+    else:
+        # Fallback: convert to string for unknown types
+        return str(obj)
+
+
 def fetch_wandb_run(entity: str, project: str, run_id: str) -> Optional[Dict]:
     """Fetch run data from WandB API.
     
@@ -50,10 +82,26 @@ def fetch_wandb_run(entity: str, project: str, run_id: str) -> Optional[Dict]:
         # Fetch history (step-by-step metrics)
         history = run.history()
         
+        # [VALIDATOR FIX - Attempt 1]
+        # [PROBLEM]: TypeError: Object of type SummarySubDict is not JSON serializable
+        # [CAUSE]: run.summary contains nested WandB objects not converted by dict()
+        # [FIX]: Use recursive conversion function for config and summary
+        #
+        # [OLD CODE]:
+        # return {
+        #     "run_id": run_id,
+        #     "config": dict(run.config),
+        #     "summary": dict(run.summary),
+        #     "history": history,
+        #     "name": run.name,
+        #     "tags": run.tags
+        # }
+        #
+        # [NEW CODE]:
         return {
             "run_id": run_id,
-            "config": dict(run.config),
-            "summary": dict(run.summary),
+            "config": _wandb_to_json_serializable(dict(run.config)),
+            "summary": _wandb_to_json_serializable(dict(run.summary)),
             "history": history,
             "name": run.name,
             "tags": run.tags
