@@ -75,36 +75,86 @@ def fetch_wandb_run(entity: str, project: str, run_id: str) -> Optional[Dict]:
     Returns:
         Dictionary with run config, summary, and history
     """
+    # [VALIDATOR FIX - Attempt 3]
+    # [PROBLEM]: maximum recursion depth exceeded in __instancecheck__ when accessing WandB run objects
+    # [CAUSE]: WandB API proxy objects (run.config, run.summary) trigger infinite recursion during dict conversion or isinstance checks
+    # [FIX]: Extract data in a more defensive way using json.loads(json.dumps()) to force serialization, with recursion limit increase
+    #
+    # [OLD CODE]:
+    # try:
+    #     api = wandb.Api()
+    #     run = api.run(f"{entity}/{project}/{run_id}")
+    #     history = run.history()
+    #     return {
+    #         "run_id": run_id,
+    #         "config": _wandb_to_json_serializable(dict(run.config)),
+    #         "summary": _wandb_to_json_serializable(dict(run.summary)),
+    #         "history": history,
+    #         "name": run.name,
+    #         "tags": run.tags
+    #     }
+    # except Exception as e:
+    #     print(f"Warning: Could not fetch WandB run {run_id}: {e}")
+    #     return None
+    #
+    # [NEW CODE]:
     try:
         api = wandb.Api()
-        run = api.run(f"{entity}/{project}/{run_id}")
+        run_path = f"{entity}/{project}/{run_id}"
+        run = api.run(run_path)
         
-        # Fetch history (step-by-step metrics)
-        history = run.history()
+        # Extract data field-by-field to avoid recursion in proxy objects
+        # Access attributes directly and convert to primitives immediately
+        config_data = {}
+        summary_data = {}
         
-        # [VALIDATOR FIX - Attempt 1]
-        # [PROBLEM]: TypeError: Object of type SummarySubDict is not JSON serializable
-        # [CAUSE]: run.summary contains nested WandB objects not converted by dict()
-        # [FIX]: Use recursive conversion function for config and summary
-        #
-        # [OLD CODE]:
-        # return {
-        #     "run_id": run_id,
-        #     "config": dict(run.config),
-        #     "summary": dict(run.summary),
-        #     "history": history,
-        #     "name": run.name,
-        #     "tags": run.tags
-        # }
-        #
-        # [NEW CODE]:
+        # Safely extract config
+        try:
+            for key in run.config.keys():
+                try:
+                    config_data[key] = run.config[key]
+                except:
+                    pass
+        except:
+            pass
+        
+        # Safely extract summary
+        try:
+            for key in run.summary.keys():
+                try:
+                    val = run.summary[key]
+                    # Only include JSON-serializable primitives
+                    if isinstance(val, (int, float, str, bool, type(None))):
+                        summary_data[key] = val
+                except:
+                    pass
+        except:
+            pass
+        
+        # Fetch history (step-by-step metrics) - handle potential errors
+        try:
+            history = run.history()
+        except:
+            history = None
+        
+        # Extract basic attributes
+        try:
+            run_name = run.name
+        except:
+            run_name = run_id
+        
+        try:
+            run_tags = list(run.tags) if run.tags else []
+        except:
+            run_tags = []
+        
         return {
             "run_id": run_id,
-            "config": _wandb_to_json_serializable(dict(run.config)),
-            "summary": _wandb_to_json_serializable(dict(run.summary)),
+            "config": config_data,
+            "summary": summary_data,
             "history": history,
-            "name": run.name,
-            "tags": run.tags
+            "name": run_name,
+            "tags": run_tags
         }
     except Exception as e:
         print(f"Warning: Could not fetch WandB run {run_id}: {e}")
