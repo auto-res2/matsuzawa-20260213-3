@@ -31,6 +31,8 @@
 %=================================================================
 % Add packages and commands here. The following packages are loaded in our class file: fontenc, inputenc, calc, indentfirst, fancyhdr, graphicx, epstopdf, lastpage, ifthen, float, amsmath, amssymb, lineno, setspace, enumitem, mathpazo, booktabs, titlesec, etoolbox, tabto, xcolor, colortbl, soul, multirow, microtype, tikz, totcount, changepage, attrib, upgreek, array, tabularx, pbox, ragged2e, tocloft, marginnote, marginfix, enotez, amsthm, natbib, hyperref, cleveref, scrextend, url, geometry, newfloat, caption, draftwatermark, seqsplit
 % cleveref: load \crefname definitions after \begin{document}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 
 %=================================================================
 % Please use the following mathematics environments: Theorem, Lemma, Corollary, Proposition, Characterization, Property, Problem, Example, ExamplesandDefinitions, Hypothesis, Remark, Definition, Notation, Assumption
@@ -72,7 +74,7 @@ $^{2}$ \quad Affiliation 2; e-mail@e-mail.com}
 %\conference{} % An extended version of a conference paper
 
 % Abstract (Do not insert blank lines, i.e. \\)
-\abstract{Self-Consistency (SC) improves chain-of-thought (CoT) reasoning by sampling multiple solutions and selecting the most frequent answer, implicitly treating answer agreement as evidence of correctness. This premise breaks when a single model's samples share correlated mistakes, yielding a high-agreement but wrong majority. We study whether purely prompt-time interventions can make SC more robust without training an external verifier. We propose Falsification-Augmented Bidirectional Self-Consistency (FAB-SC), which attaches to each sampled solution two complementary reliability signals produced by the same base model: a backsolve ``plug-back'' verification that checks whether a proposed answer satisfies the problem's explicit constraints, and a small stochastic refuter ensemble that attempts to falsify the solution and outputs an estimated probability of error. We additionally apply a length-based penalty to reduce verbosity-driven scoring artifacts, and aggregate answers via importance-weighted voting. In inference-only pilots with GPT-4o and a matched forward-sampling budget ($m=8$), FAB-SC yields mixed outcomes: on SVAMP (first 300 test items) it slightly improves accuracy ($0.853$ vs $0.843$ for SC), while on GSM8K (first 200 test items) it reduces accuracy ($0.785$ vs $0.810$) and increases wall-clock runtime by about $18\times$. These results clarify both the promise and the pitfalls of prompt-only verification when the model ``grades its own work,'' and motivate more calibrated verification signals and compute-aware variants.}
+\abstract{Self-Consistency (SC) improves chain-of-thought (CoT) reasoning by sampling multiple solutions and selecting the most frequent answer, implicitly treating answer agreement as evidence of correctness. This premise breaks when a single model's samples share correlated mistakes, yielding a high-agreement but wrong majority. We study whether purely prompt-time interventions can make SC more robust without training an external verifier. We propose Falsification-Augmented Bidirectional Self-Consistency (FAB-SC), which attaches to each sampled solution two complementary reliability signals produced by the same base model: a backsolve ``plug-back'' verification that checks whether a proposed answer satisfies the problem's explicit constraints, and a small stochastic refuter ensemble that attempts to falsify the solution and outputs an estimated probability of error. We additionally apply a length-based penalty to reduce verbosity-driven scoring artifacts, and aggregate answers via importance-weighted voting. In inference-only pilots with GPT-4o and a matched forward-sampling budget ($m=8$), FAB-SC yields mixed outcomes: on SVAMP (first 300 test items) it slightly improves accuracy ($0.853$ vs $0.843$ for SC), while on GSM8K (first 200 test items) it reduces accuracy ($0.785$ vs $0.810$) and increases wall-clock runtime by about $18\times$. These results clarify both the promise and the pitfalls of prompt-only verification when the model ``grades its own work'' and motivate more calibrated verification signals and compute-aware variants.}
 
 % Keywords
 \keyword{keyword 1; keyword 2; keyword 3 (List three to ten pertinent keywords specific to the article; yet reasonably common within the subject discipline.)}
@@ -128,9 +130,9 @@ $^{2}$ \quad Affiliation 2; e-mail@e-mail.com}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 
-Large language models (LLMs) can often be induced to perform multi-step reasoning by producing intermediate natural-language explanations, commonly termed chain-of-thought (CoT) \cite{wei-2022-chain}. In arithmetic word problems, CoT can make implicit intermediate computations explicit, improving accuracy relative to direct answer-only prompting. Yet CoT does not eliminate brittleness: a single decoding pass can be derailed by small but consequential mistakes such as an arithmetic slip, a unit mismatch, or an incorrect mapping from text to equations. Worse, the generated rationale may remain fluent and coherent despite being wrong, which complicates downstream trust.
+Large language models (LLMs) can often be induced to perform multi-step reasoning by producing intermediate natural-language explanations, commonly termed chain-of-thought (CoT)~\cite{wei-2022-chain}. In arithmetic word problems, CoT can make implicit intermediate computations explicit, improving accuracy relative to direct answer-only prompting. Yet CoT does not eliminate brittleness: a single decoding pass can be derailed by small but consequential mistakes such as an arithmetic slip, a unit mismatch, or an incorrect mapping from text to equations. Worse, the generated rationale may remain fluent and coherent despite being wrong, which complicates downstream trust.
 
-Self-Consistency (SC) addresses this brittleness at inference time by sampling multiple diverse CoT solutions from the same model and aggregating the resulting final answers, typically by majority vote \cite{wang-2022-self}. SC can be viewed as a self-ensemble that marginalizes over stochastic reasoning paths: instead of trusting a single trajectory, it trusts the most recurrent answer across sampled trajectories.
+Self-Consistency (SC) addresses this brittleness at inference time by sampling multiple diverse CoT solutions from the same model and aggregating the resulting final answers, typically by majority vote~\cite{wang-2022-self}. SC can be viewed as a self-ensemble that marginalizes over stochastic reasoning paths: instead of trusting a single trajectory, it trusts the most recurrent answer across sampled trajectories.
 
 However, SC relies on an informal but consequential assumption: sampled rationales behave like approximately independent evidence for an answer, so that agreement implies correctness. In practice, this assumption can fail in a particularly damaging way. Samples from a single model share parameters, training data priors, and common high-probability heuristics, so their errors are often correlated. If the model systematically misreads a quantity, repeats an incorrect conversion, or applies the same flawed heuristic across samples, then SC can amplify the shared error into a confident wrong majority. This ``high-agreement wrong answer'' failure mode is especially risky in settings where the model's consensus is used as a reliability signal.
 
@@ -138,7 +140,7 @@ Human problem solvers rarely treat repeated reasoning in the same direction as s
 
 We propose Falsification-Augmented Bidirectional Self-Consistency (FAB-SC), a prompt-only decoding and aggregation procedure that extends SC with two structured checks per forward sample. First, a backsolve or plug-back check conditions on the proposed final answer and forces the model to verify constraint satisfaction rather than re-solve freely. Second, an adversarial falsification ensemble runs several short ``refuter'' prompts that explicitly try to find concrete flaws (misread quantities, invalid algebra, arithmetic slips, or missing constraints) and output an estimated probability that the solution is wrong. FAB-SC combines these two verification signals with an external, token-count-based length penalty designed to reduce the known confound between verbosity and self-scoring. The final answer is selected by an importance-weighted vote rather than an unweighted majority.
 
-We evaluate FAB-SC as a drop-in replacement for SC under a matched forward-sampling budget using GPT-4o. The experiments are inference-only pilot runs on two standard arithmetic word-problem benchmarks used in prior CoT and SC work: GSM8K and SVAMP \cite{wei-2022-chain,wang-2022-self}. To control cost, we follow the run configurations and evaluate on prefixes of the official test splits: the first 200 GSM8K test items and the first 300 SVAMP test items. The results show mixed outcomes. On GSM8K ($N=200$), FAB-SC underperforms SC ($0.785$ vs $0.810$). On SVAMP ($N=300$), FAB-SC slightly improves over SC ($0.853$ vs $0.843$). Across both datasets, FAB-SC incurs substantial additional wall-clock runtime, about $18\times$ in these runs, reflecting the additional verification calls per forward sample.
+We evaluate FAB-SC as a drop-in replacement for SC under a matched forward-sampling budget using GPT-4o. The experiments are inference-only pilot runs on two standard arithmetic word-problem benchmarks used in prior CoT and SC work: GSM8K and SVAMP~\cite{wei-2022-chain,wang-2022-self}. To control cost, we follow the run configurations and evaluate on prefixes of the official test splits: the first 200 GSM8K test items and the first 300 SVAMP test items. The results show mixed outcomes. On GSM8K ($N=200$), FAB-SC underperforms SC ($0.785$ vs $0.810$). On SVAMP ($N=300$), FAB-SC slightly improves over SC ($0.853$ vs $0.843$). Across both datasets, FAB-SC incurs substantial additional wall-clock runtime, about $18\times$ in these runs, reflecting the additional verification calls per forward sample.
 
 These findings sharpen the empirical question underlying robust inference-time aggregation: prompt-only verification using the same base model may provide useful signals on some distributions, but it can also mis-rank candidates and negate the benefits of self-ensembling on others. Equally importantly, the compute overhead is large, making compute-aware evaluation essential.
 
@@ -149,26 +151,26 @@ Our contributions are:
 \item \textbf{Controlled pilot evaluation.} We report controlled pilot results on GSM8K (first 200 test items) and SVAMP (first 300 test items) comparing FAB-SC to standard SC with the same forward-sampling budget, and we quantify the associated wall-clock runtime overhead.
 \end{itemize}
 
-Several follow-up directions are suggested by these pilots. First, evaluating the hypothesized mechanism directly requires metrics beyond aggregate accuracy, such as the rate at which FAB-SC corrects cases where SC yields a wrong majority. Second, the verification prompts and parsing format may need better calibration to avoid systematic self-verification biases. Third, given the substantial overhead, compute-reduction strategies such as early stopping for SC \cite{ma-2024-escape} become even more relevant when verification is introduced, motivating hybrids that adaptively allocate either forward samples or verification calls.
+Several follow-up directions are suggested by these pilots. First, evaluating the hypothesized mechanism directly requires metrics beyond aggregate accuracy, such as the rate at which FAB-SC corrects cases where SC yields a wrong majority. Second, the verification prompts and parsing format may need better calibration to avoid systematic self-verification biases. Third, given the substantial overhead, compute-reduction strategies such as early stopping for SC~\cite{ma-2024-escape} become even more relevant when verification is introduced, motivating hybrids that adaptively allocate either forward samples or verification calls.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Related Work}
 
-Chain-of-thought prompting established that providing intermediate reasoning steps in the prompt can substantially improve multi-step performance on arithmetic reasoning benchmarks \cite{wei-2022-chain}. In our setting, CoT is not the endpoint but the substrate: FAB-SC assumes CoT-style forward reasoning traces exist and uses them as candidates for aggregation and verification. A key limitation of CoT prompting highlighted by subsequent practice is that fluent rationales may still contain subtle mistakes, so additional reliability mechanisms are needed when outputs are used in high-stakes settings.
+Chain-of-thought prompting established that providing intermediate reasoning steps in the prompt can substantially improve multi-step performance on arithmetic reasoning benchmarks~\cite{wei-2022-chain}. In our setting, CoT is not the endpoint but the substrate: FAB-SC assumes CoT-style forward reasoning traces exist and uses them as candidates for aggregation and verification. A key limitation of CoT prompting highlighted by subsequent practice is that fluent rationales may still contain subtle mistakes, so additional reliability mechanisms are needed when outputs are used in high-stakes settings.
 
-Self-consistency is a prominent inference-time method that explicitly uses redundancy to improve reliability: it samples multiple diverse CoT completions and aggregates the final answers, most commonly by majority vote \cite{wang-2022-self}. SC's implicit statistical intuition is that agreement across diverse reasoning paths is evidence of correctness. FAB-SC builds directly on SC but focuses on the specific regime where SC's agreement heuristic can fail: when the sampled set is not diverse in the relevant error dimensions and instead contains correlated mistakes. Under correlated errors, majority vote can be overconfident and systematically wrong.
+Self-consistency is a prominent inference-time method that explicitly uses redundancy to improve reliability: it samples multiple diverse CoT completions and aggregates the final answers, most commonly by majority vote~\cite{wang-2022-self}. SC's implicit statistical intuition is that agreement across diverse reasoning paths is evidence of correctness. FAB-SC builds directly on SC but focuses on the specific regime where SC's agreement heuristic can fail: when the sampled set is not diverse in the relevant error dimensions and instead contains correlated mistakes. Under correlated errors, majority vote can be overconfident and systematically wrong.
 
-A practical limitation of SC is its linear scaling of inference cost with the number of samples. Recent work therefore explores compute-aware variants, including early-stopping schemes that terminate sampling once agreement is deemed sufficient \cite{ma-2024-escape}. This line of work is complementary to FAB-SC in two ways. First, our method increases per-sample compute by adding verification calls, so any deployment-level viability depends even more strongly on compute management. Second, early-stopping ideas provide a concrete template for future FAB-SC variants: one can imagine stopping either forward sampling or verification when additional evidence is unlikely to change the weighted vote.
+A practical limitation of SC is its linear scaling of inference cost with the number of samples. Recent work therefore explores compute-aware variants, including early-stopping schemes that terminate sampling once agreement is deemed sufficient~\cite{ma-2024-escape}. This line of work is complementary to FAB-SC in two ways. First, our method increases per-sample compute by adding verification calls, so any deployment-level viability depends even more strongly on compute management. Second, early-stopping ideas provide a concrete template for future FAB-SC variants: one can imagine stopping either forward sampling or verification when additional evidence is unlikely to change the weighted vote.
 
 Finally, FAB-SC relates to prompt-only self-evaluation and critique methods in which the same model is asked to score or critique its own outputs. FAB-SC differs from an undifferentiated self-score by (i) enforcing a constrained backsolve procedure that is explicitly framed as constraint checking rather than free re-solving, and (ii) using multiple stochastic refuters that aim to produce negative evidence (``find a flaw'') rather than a single confidence statement. Nevertheless, because FAB-SC still uses the same base model for both generation and verification, its scores can inherit shared biases, and our pilot results illustrate that such prompt-only verification is not uniformly beneficial even when designed to be complementary to forward solving.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Background}
 
-This work studies inference-time aggregation for short arithmetic word problems, following the evaluation paradigm commonly used in CoT and self-consistency studies \cite{wei-2022-chain,wang-2022-self}. Each example consists of a natural-language question and a single numeric gold answer, and performance is measured by answer accuracy after deterministic extraction of a numeric prediction.
+This work studies inference-time aggregation for short arithmetic word problems, following the evaluation paradigm commonly used in CoT and self-consistency studies~\cite{wei-2022-chain,wang-2022-self}. Each example consists of a natural-language question and a single numeric gold answer, and performance is measured by answer accuracy after deterministic extraction of a numeric prediction.
 
 \subsection{Problem setting and notation}
-Let $x$ denote a word-problem question and let $y^*$ denote its gold numeric answer. A base LLM is queried with a prompt that requests step-by-step reasoning and a final numeric answer. A single model completion contains a rationale $r$ and an answer string from which we extract a numeric answer $a$ via a deterministic parser. For a fixed question $x$, standard self-consistency draws $m$ stochastic generations, yielding pairs $(r_i, a_i)$ for $i \in \{1,\dots,m\}$, and predicts the aggregated answer $\hat{a}$ as the most frequent value among $\{a_i\}$ (majority vote) \cite{wang-2022-self}.
+Let $x$ denote a word-problem question and let $y^*$ denote its gold numeric answer. A base LLM is queried with a prompt that requests step-by-step reasoning and a final numeric answer. A single model completion contains a rationale $r$ and an answer string from which we extract a numeric answer $a$ via a deterministic parser. For a fixed question $x$, standard self-consistency draws $m$ stochastic generations, yielding pairs $(r_i, a_i)$ for $i \in \{1,\dots,m\}$, and predicts the aggregated answer $\hat{a}$ as the most frequent value among $\{a_i\}$ (majority vote)~\cite{wang-2022-self}.
 
 \subsection{Correlated errors and the limits of agreement}
 SC's empirical success is often attributed to diversity across sampled reasoning paths: if errors are uncorrelated, wrong answers are less likely to recur, while correct answers recur more frequently. In a single-model setting, however, the distribution over sampled rationales can exhibit structured correlations. Even with stochastic decoding, the model's highest-probability interpretations of an ambiguous statement, its preferred solution templates, and its characteristic arithmetic slips can recur across samples. Under such correlations, agreement becomes an unreliable proxy for correctness, and SC can converge to a wrong majority.
@@ -192,11 +194,11 @@ For each question $x$, FAB-SC performs the following steps.
 \caption{Falsification-Augmented Bidirectional Self-Consistency (FAB-SC)}
 \begin{algorithmic}
 \State \textbf{Input:} question $x$, forward sample count $m$, refuter count $k$, exponents $\alpha,\beta$, length parameters $\lambda_{\text{length}}, t_0$
-\State Sample $m$ forward CoT solutions; parse numeric answers to obtain candidates $\{(r_i, a_i)\}_{i=1}^m$
+\State Sample $m$ forward CoT solutions; parse numeric answers to obtain candidates $\{{(r_i, a_i)}\}_{i=1}^m$
 \State Discard candidates with unparsable $a_i$
 \For{$i=1$ to $m$}
 \State Backsolve-check prompt with $(x, r_i, a_i)$; parse $B_i \in [0,1]$
-\State Run $k$ refuter prompts with $(x, r_i, a_i)$; parse $\{p_{i,j}\}_{j=1}^k$ with $p_{i,j}\in[0,1]$
+\State Run $k$ refuter prompts with $(x, r_i, a_i)$; parse $\{{p_{i,j}}\}_{j=1}^k$ with $p_{i,j}\in[0,1]$
 \State Compute falsification survival $F_i \leftarrow 1 - \frac{1}{k}\sum_{j=1}^k p_{i,j}$
 \State Compute length penalty $L_i \leftarrow \exp\!\big(-\lambda_{\text{length}}\, t_i / t_0\big)$
 \State Compute weight $w_i \leftarrow (B_i^{\alpha})(F_i^{\beta}) L_i$
@@ -207,7 +209,7 @@ For each question $x$, FAB-SC performs the following steps.
 \end{algorithm}
 
 \subsection{Forward solve sampling}
-We construct a CoT prompt that asks the model to solve the problem step by step. We sample $m$ forward completions using stochastic decoding, obtaining texts that contain a rationale $r_i$ and (after parsing) a numeric answer $a_i$. This matches the standard SC setup except that FAB-SC will later weight samples rather than count them equally \cite{wang-2022-self}. Samples whose completions do not yield a parsable numeric answer are discarded.
+We construct a CoT prompt that asks the model to solve the problem step by step. We sample $m$ forward completions using stochastic decoding, obtaining texts that contain a rationale $r_i$ and (after parsing) a numeric answer $a_i$. This matches the standard SC setup except that FAB-SC will later weight samples rather than count them equally~\cite{wang-2022-self}. Samples whose completions do not yield a parsable numeric answer are discarded.
 
 \subsection{Backsolve (plug-back) verification}
 For each remaining pair $(r_i, a_i)$, we create a verification prompt that includes the original question $x$, the proposed numeric answer $a_i$, and the proposed rationale $r_i$ as context. The prompt instructs the model not to re-solve freely, but to (i) identify key constraints from the problem statement, (ii) plug the proposed answer into those constraints, and (iii) recompute derived quantities to ensure consistency. The model is required to return a numeric field ``CONFIDENCE'' between $0$ and $1$ and a ``VERDICT'' field (PASS or FAIL). We parse the CONFIDENCE value as $B_i$, clipping to $[0,1]$ if needed. In the current implementation, backsolve decoding uses a lower temperature ($0.3$) than forward sampling to reduce variability.
@@ -246,7 +248,7 @@ Our Hydra-configured inference script executes these steps per question via API 
 We evaluate FAB-SC as an inference-only replacement for standard self-consistency on grade-school arithmetic word problems. The experiments are designed to isolate the effect of adding prompt-time verification and importance weighting, holding constant the base model and the forward-sampling budget.
 
 \subsection{Datasets and evaluation slices}
-We use GSM8K (main configuration) and SVAMP, both widely used for arithmetic word-problem evaluation in the CoT and SC literature \cite{wei-2022-chain,wang-2022-self}. Datasets are loaded using the HuggingFace datasets library. For GSM8K, gold answers are extracted from the dataset's canonical answer format by matching the ``\texttt{\#\#\#\# X}'' pattern; for SVAMP, gold answers are read as numeric values. To keep the verification-heavy method computationally feasible, we follow the run configurations and evaluate dataset prefixes: the first $200$ questions of the GSM8K test split and the first $300$ questions of the SVAMP test split.
+We use GSM8K (main configuration) and SVAMP, both widely used for arithmetic word-problem evaluation in the CoT and SC literature~\cite{wei-2022-chain,wang-2022-self}. Datasets are loaded using the HuggingFace datasets library. For GSM8K, gold answers are extracted from the dataset's canonical answer format by matching the ``\texttt{\#\#\#\# X}'' pattern; for SVAMP, gold answers are read as numeric values. To keep the verification-heavy method computationally feasible, we follow the run configurations and evaluate dataset prefixes: the first $200$ questions of the GSM8K test split and the first $300$ questions of the SVAMP test split.
 
 \subsection{Model and prompting}
 All runs use GPT-4o (API model identifier \texttt{gpt-4o-2024-08-06}) as the base LLM for both generation and verification. Forward prompts ask for step-by-step solutions. Backsolve prompts ask for constraint-based verification of a proposed answer, returning CONFIDENCE and PASS/FAIL. Falsification prompts ask a critical reviewer to identify flaws and return ERROR\_PROB and a one-sentence reason.
@@ -255,7 +257,7 @@ All runs use GPT-4o (API model identifier \texttt{gpt-4o-2024-08-06}) as the bas
 We compare two inference-time aggregation methods.
 
 \subsection{Self-Consistency baseline}
-For each question, sample $m$ forward CoT solutions and return the most frequent extracted answer (majority vote), following the standard SC procedure \cite{wang-2022-self}.
+For each question, sample $m$ forward CoT solutions and return the most frequent extracted answer (majority vote), following the standard SC procedure~\cite{wang-2022-self}.
 
 \subsection{FAB-SC}
 Sample the same $m$ forward solutions, compute per-sample backsolve and falsification signals, apply a length penalty, and aggregate answers by summing importance weights.
@@ -277,22 +279,19 @@ This section reports the pilot results logged by the executed runs for FAB-SC an
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.7\linewidth]{images/accuracy_progress.pdf}
-\caption{Cumulative accuracy over evaluation questions for an individual run; higher values indicate better performance.}
-\label{fig:accuracy-progress}
+\caption{Cumulative accuracy over evaluation questions for an individual run; higher values indicate better performance.}\label{fig:accuracy-progress}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.7\linewidth]{images/comparison_accuracy.pdf}
-\caption{Accuracy comparison across runs; higher values indicate better performance.}
-\label{fig:comparison-accuracy}
+\caption{Accuracy comparison across runs; higher values indicate better performance.}\label{fig:comparison-accuracy}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.7\linewidth]{images/comparison_accuracy_progress.pdf}
-\caption{Overlay of cumulative accuracy progress across runs; higher values indicate better performance.}
-\label{fig:comparison-accuracy-progress}
+\caption{Overlay of cumulative accuracy progress across runs; higher values indicate better performance.}\label{fig:comparison-accuracy-progress}
 \end{figure}
 
 \subsection{GSM8K pilot}
@@ -319,13 +318,13 @@ We examined a key weakness of self-consistency: treating agreement among sampled
 
 Inference-only pilot experiments with GPT-4o under a matched forward-sampling budget ($m=8$) show mixed outcomes. On SVAMP (first $300$ test items), FAB-SC slightly improves accuracy from $0.8433$ to $0.8533$. On GSM8K (first $200$ test items), FAB-SC reduces accuracy from $0.810$ to $0.785$. The method also increases end-to-end runtime by roughly $18\times$ in these runs, consistent with the additional verification calls per forward sample.
 
-Taken together, the results suggest that prompt-only verification using the same base model is a delicate intervention: it can provide useful signals on some distributions but can also mis-rank candidates and negate the benefits of self-ensembling, all while imposing substantial compute costs. Future work should prioritize (i) computing mechanism-level diagnostics from saved artifacts (for example, how often FAB-SC overturns an incorrect SC majority), (ii) calibrating and stress-testing verification prompts to reduce systematic self-verification bias, and (iii) integrating compute-aware policies, including early-stopping ideas developed for SC \cite{ma-2024-escape}, to make verification-augmented aggregation practically viable.
+Taken together, the results suggest that prompt-only verification using the same base model is a delicate intervention: it can provide useful signals on some distributions but can also mis-rank candidates and negate the benefits of self-ensembling, all while imposing substantial compute costs. Future work should prioritize (i) computing mechanism-level diagnostics from saved artifacts (for example, how often FAB-SC overturns an incorrect SC majority), (ii) calibrating and stress-testing verification prompts to reduce systematic self-verification bias, and (iii) integrating compute-aware policies, including early-stopping ideas developed for SC~\cite{ma-2024-escape}, to make verification-augmented aggregation practically viable.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \vspace{6pt}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\authorcontributions{For research articles with several authors, a short paragraph specifying their individual contributions must be provided. The following statements should be used ``Conceptualization, X.X. and Y.Y.; methodology, X.X.; software, X.X.; validation, X.X., Y.Y. and Z.Z.; formal analysis, X.X.; investigation, X.X.; resources, X.X.; data curation, X.X.; writing---original draft preparation, X.X.; writing---review and editing, X.X.; visualization, X.X.; supervision, X.X.; project administration, X.X.; funding acquisition, Y.Y. All authors have read and agreed to the published version of the manuscript.'', please turn to the  \href{http://img.mdpi.org/data/contributor-role-instruction.pdf}{CRediT taxonomy} for the term explanation. Authorship must be limited to those who have contributed substantially to the work~reported.}
+\authorcontributions{For research articles with several authors, a short paragraph specifying their individual contributions must be provided. The following statements should be used: ``Conceptualization, X.X. and Y.Y.; methodology, X.X.; software, X.X.; validation, X.X., Y.Y. and Z.Z.; formal analysis, X.X.; investigation, X.X.; resources, X.X.; data curation, X.X.; writing---original draft preparation, X.X.; writing---review and editing, X.X.; visualization, X.X.; supervision, X.X.; project administration, X.X.; funding acquisition, Y.Y. All authors have read and agreed to the published version of the manuscript.'' Please turn to the  \href{http://img.mdpi.org/data/contributor-role-instruction.pdf}{CRediT taxonomy} for the term explanation. Authorship must be limited to those who have contributed substantially to the work~reported.}
 
 \funding{This research received no external funding.}
 
