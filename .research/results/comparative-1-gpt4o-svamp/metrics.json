@@ -1,0 +1,65 @@
+{
+  "run_id": "comparative-1-gpt4o-svamp",
+  "summary": {
+    "_runtime": 1548,
+    "_step": 299,
+    "_timestamp": 1771019769.9933963,
+    "accuracy": 0.8433333333333334,
+    "correct": 1,
+    "correct_count": 253,
+    "question_idx": 299,
+    "total_count": 300
+  },
+  "config": {
+    "run": {
+      "model": {
+        "name": "gpt-4o",
+        "provider": "openai",
+        "api_model_name": "gpt-4o-2024-08-06",
+        "max_context_length": 128000
+      },
+      "wandb": {
+        "tags": [
+          "sc",
+          "baseline",
+          "svamp",
+          "gpt-4o"
+        ],
+        "notes": "Standard Self-Consistency baseline (majority vote) on SVAMP"
+      },
+      "method": {
+        "name": "sc",
+        "type": "comparative-1",
+        "max_tokens": 512,
+        "aggregation": "majority_vote",
+        "description": "Standard Self-Consistency (baseline)",
+        "temperature": 0.7,
+        "forward_samples": 8,
+        "backsolve_enabled": false,
+        "falsification_enabled": false
+      },
+      "run_id": "comparative-1-gpt4o-svamp",
+      "dataset": {
+        "name": "svamp",
+        "split": "test",
+        "subset": null,
+        "cache_dir": ".cache",
+        "max_samples": 300
+      },
+      "inference": {
+        "batch_size": 1,
+        "num_workers": 0,
+        "save_outputs": true,
+        "output_format": "jsonl"
+      }
+    },
+    "mode": "main",
+    "wandb": {
+      "mode": "online",
+      "entity": "airas",
+      "project": "2026-02-13-3"
+    },
+    "cache_dir": ".cache",
+    "results_dir": ".research/results"
+  }
+}

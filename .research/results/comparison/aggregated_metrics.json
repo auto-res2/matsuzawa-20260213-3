@@ -1,0 +1,38 @@
+{
+  "primary_metric": "accuracy",
+  "metrics_by_run": {
+    "comparative-1-gpt4o-gsm8k": {
+      "accuracy": 0.81,
+      "correct_count": 162,
+      "total_count": 200,
+      "method_type": "comparative-1"
+    },
+    "comparative-1-gpt4o-svamp": {
+      "accuracy": 0.8433333333333334,
+      "correct_count": 253,
+      "total_count": 300,
+      "method_type": "comparative-1"
+    },
+    "proposed-gpt4o-gsm8k": {
+      "accuracy": 0.785,
+      "correct_count": 157,
+      "total_count": 200,
+      "method_type": "proposed"
+    },
+    "proposed-gpt4o-svamp": {
+      "accuracy": 0.8533333333333334,
+      "correct_count": 256,
+      "total_count": 300,
+      "method_type": "proposed"
+    }
+  },
+  "best_proposed": {
+    "run_id": "proposed-gpt4o-svamp",
+    "accuracy": 0.8533333333333334
+  },
+  "best_baseline": {
+    "run_id": "comparative-1-gpt4o-svamp",
+    "accuracy": 0.8433333333333334
+  },
+  "gap": 0.010000000000000009
+}
