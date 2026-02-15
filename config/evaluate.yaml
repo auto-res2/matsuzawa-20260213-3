@@ -1,0 +1,14 @@
+# Configuration for evaluation/visualization script
+# This is separate from the main config.yaml to avoid requiring 'run' parameter
+
+# Results output directory
+results_dir: .research/results
+
+# Run IDs to evaluate (can be overridden via CLI)
+run_ids: []
+
+# WandB configuration  
+wandb:
+  entity: airas
+  project: 2026-02-13-3
+  mode: online

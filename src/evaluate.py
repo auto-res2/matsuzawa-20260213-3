@@ -265,19 +265,36 @@ def compute_aggregated_metrics(all_runs: List[Dict]) -> Dict:
     return aggregated
 
 
-@hydra.main(config_path="../config", config_name="config", version_base=None)
+# [VALIDATOR FIX - Attempt 2]
+# [PROBLEM]: src.evaluate failed with "You must specify 'run'" error when called from visualization workflow
+# [CAUSE]: evaluate.py uses @hydra.main with config.yaml which requires 'run: ???' parameter, but evaluate.py doesn't need run configs
+# [FIX]: Use a separate evaluate.yaml config file that doesn't require 'run' parameter
+#
+# [OLD CODE]:
+# @hydra.main(config_path="../config", config_name="config", version_base=None)
+#
+# [NEW CODE]:
+@hydra.main(config_path="../config", config_name="evaluate", version_base=None)
 def main(cfg: DictConfig):
     """Main evaluation script."""
-    # Extract parameters from config
+    # Extract parameters from config (with CLI overrides)
     results_dir = Path(cfg.results_dir)
-    run_ids = json.loads(cfg.run_ids)
+    
+    # Handle run_ids parameter - can be a string (JSON) or list
+    run_ids_raw = cfg.run_ids
+    if isinstance(run_ids_raw, str):
+        # If passed as CLI arg, it will be a JSON string
+        run_ids = json.loads(run_ids_raw) if run_ids_raw else []
+    else:
+        # If from config file, it will already be a list
+        run_ids = list(run_ids_raw) if run_ids_raw else []
     
     print(f"Evaluating runs: {run_ids}")
     print(f"Results directory: {results_dir}")
     
     # Get WandB credentials from config or environment
-    wandb_entity = cfg.get("wandb_entity") or os.environ.get("WANDB_ENTITY")
-    wandb_project = cfg.get("wandb_project") or os.environ.get("WANDB_PROJECT")
+    wandb_entity = cfg.wandb.get("entity") or os.environ.get("WANDB_ENTITY")
+    wandb_project = cfg.wandb.get("project") or os.environ.get("WANDB_PROJECT")
     
     if not wandb_entity or not wandb_project:
         print("Warning: WandB entity/project not specified. Will use local metrics only.")
