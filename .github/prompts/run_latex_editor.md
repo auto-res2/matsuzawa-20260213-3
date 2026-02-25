@@ -10,7 +10,7 @@ Task:
   - Tables: Check that tables are properly formatted with correct alignment and no missing cells.
   - Spacing: Look for unnatural whitespace, overlapping text, or layout collapse.
   - Page breaks: Verify no content is cut off or orphaned inappropriately.
-- If the PDF does not exist (compilation failed), read the error logs in ERROR_SUMMARY and fix the LaTeX source to resolve compilation errors.
+- If the PDF does not exist, compile it yourself first using the commands below. If compilation fails, analyze the error output directly and fix the LaTeX source. Also check ERROR_SUMMARY for any prior build context.
 - After identifying issues, fix the `.tex` and `.bib` files in LATEX_DIR.
 - After making fixes, recompile and visually re-inspect the new PDF. Repeat this cycle until you are satisfied that the document is visually clean:
     ```
