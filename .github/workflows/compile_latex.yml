@@ -2,7 +2,8 @@
 #       (compile_latex_v2.yml + run_latex_editor.yml) for clearer control flow.
 # TODO: Consider using a LaTeX MCP server instead of raw CLI commands
 #       if it provides clear benefits for agent-driven compilation.
-name: "🤖 Compile LaTeX"
+name: "Compile LaTeX"
+run-name: "🤖 Compile LaTeX"
 
 on:
   workflow_dispatch:
@@ -98,12 +99,6 @@ jobs:
             echo ""
             echo "LATEX_DIR: $LATEX_DIR"
             echo "PAPER_NAME: $PAPER_NAME"
-            echo "ERROR_SUMMARY:"
-            if [ -f "$LATEX_DIR/main.log" ]; then
-              grep -E "(Warning|Error|Overfull|Underfull|undefined)" "$LATEX_DIR/main.log" | tail -n 100 || echo "No warnings/errors found in log"
-            else
-              echo "No prior build logs found."
-            fi
           } > "$PROMPT_FILE"
 
           echo "prompt_file=$PROMPT_FILE" >> "$GITHUB_OUTPUT"
