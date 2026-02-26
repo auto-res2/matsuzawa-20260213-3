@@ -92,7 +92,7 @@ runs:
 
         // Read opencode config (strip // comments)
         const raw = fs.readFileSync('$OPENCODE_CONFIG', 'utf8');
-        const config = JSON.parse(raw.replace(/\/\/.*/g, ''));
+        const config = JSON.parse(raw.replace(/^(\s*)\/\/.*/gm, '').replace(/(?<=[^:])\/\/.*/g, ''));
 
         // Merge all MCP config files
         const mcp = config.mcp || {};
