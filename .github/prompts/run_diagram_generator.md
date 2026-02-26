@@ -11,6 +11,7 @@ Task:
 Constraints:
 - Do NOT generate statistical plots, bar charts, line graphs, or any visualization of numerical experiment results. Those are handled by existing visualization pipelines using matplotlib/seaborn.
 - Only generate conceptual/explanatory diagrams: methodology overviews, architecture diagrams, pipeline flow charts, system design illustrations.
+- When calling the PaperBanana `generate_diagram` tool, explicitly request PNG format output.
 - Do not run git commands (no commit, push, pull, or checkout).
 
 DIAGRAM_DESCRIPTION:
