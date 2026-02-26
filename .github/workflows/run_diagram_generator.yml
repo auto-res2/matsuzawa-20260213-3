@@ -67,8 +67,8 @@ jobs:
                 "args": ["--from", "paperbanana[mcp]", "paperbanana-mcp"],
                 "env": {
                   "OPENAI_API_KEY": "${{ secrets.OPENAI_API_KEY }}",
-                  "GOOGLE_API_KEY": "${{ secrets.GOOGLE_API_KEY }}",
-                  "OPENROUTER_API_KEY": "${{ secrets.OPENROUTER_API_KEY }}"
+                  "OPENAI_BASE_URL": "${{ secrets.OPENAI_BASE_URL }}",
+                  "GOOGLE_API_KEY": "${{ secrets.GEMINI_API_KEY }}"
                 }
               }
             }
@@ -113,7 +113,7 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
       - name: Run OpenCode for diagram generation
         if: github.event.inputs.github_actions_agent == 'open_code'
@@ -126,7 +126,7 @@ jobs:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
       - name: Convert images to PDF
         run: |
