@@ -28,6 +28,10 @@ inputs:
     description: 'Path to MCP server config JSON file'
     required: false
     default: ''
+  mcp_timeout:
+    description: 'MCP server timeout in milliseconds'
+    required: false
+    default: '600000'
 
 runs:
   using: 'composite'
@@ -78,5 +82,7 @@ runs:
       with:
         anthropic_api_key: ${{ env.ANTHROPIC_API_KEY }}
         prompt: ${{ env.CLAUDE_PROMPT }}
-        allowed_bots: '*' 
+        allowed_bots: '*'
         claude_args: "--model=${{ env.CLAUDE_MODEL_NAME }} --max-turns=${{ inputs.max_turns }} --allowed-tools ${{ inputs.allowed_tools }} ${{ env.CLAUDE_MCP_FLAG }}"
+      env:
+        MCP_TIMEOUT: ${{ inputs.mcp_timeout }}
