@@ -140,7 +140,7 @@ jobs:
           find "$OUTPUT_DIR" -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" -o -name "*.webp" \) | while read -r img; do
             pdf="${img%.*}.pdf"
             echo "Converting $img -> $pdf"
-            convert "$img" "$pdf"
+            convert "$img" "$pdf" && rm "$img"
           done
 
       - name: Check generated diagrams
