@@ -74,6 +74,8 @@ jobs:
             }
           }
           MCPEOF
+          # Remove leading whitespace from each line (heredoc preserves indentation)
+          sed -i 's/^[[:space:]]*//' /tmp/mcp-config.json
           echo "MCP config created at /tmp/mcp-config.json"
 
       - name: Build prompt
