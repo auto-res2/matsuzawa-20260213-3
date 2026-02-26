@@ -32,6 +32,9 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - name: Install uv (for uvx MCP servers)
+      uses: astral-sh/setup-uv@v5
+
     - name: Prepare prompt
       shell: bash
       run: |
