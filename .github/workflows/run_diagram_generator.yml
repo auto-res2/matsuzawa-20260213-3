@@ -9,9 +9,9 @@ on:
         required: true
         default: 'main'
       diagram_description:
-        description: 'Description of the diagram to generate (optional; if empty, the agent infers from repository content)'
+        description: 'Description of the diagram to generate (optional; if empty, uses default)'
         required: false
-        default: ''
+        default: 'Generate 1-2 publication-quality conceptual diagrams for a research paper (e.g., methodology overview, system architecture). Diagrams should be suitable for academic publication with clear labels, minimal color, and professional style.'
       output_dir:
         description: 'Directory to save generated diagrams'
         required: false
