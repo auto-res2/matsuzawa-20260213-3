@@ -62,7 +62,7 @@ jobs:
 
       - name: Install AI Research Skills
         run: |
-          mkdir -p .claude/skills .opencode/skills
+          mkdir -p ~/.claude/skills ~/.config/opencode/skills
           npx @orchestra-research/ai-research-skills install --all --local
 
       - name: Build code generation prompt
