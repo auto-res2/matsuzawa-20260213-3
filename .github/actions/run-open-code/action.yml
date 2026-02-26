@@ -19,6 +19,10 @@ inputs:
     description: 'Path to MCP server config JSON file (will be merged into .opencode/opencode.jsonc)'
     required: false
     default: ''
+  mcp_timeout:
+    description: 'Global MCP tool call timeout in milliseconds'
+    required: false
+    default: '600000'
 
 runs:
   using: "composite"
@@ -109,6 +113,9 @@ runs:
         }
 
         config.mcp = mcp;
+        // Set global MCP timeout (5 min) to avoid timeout on slow MCP tools like image generation
+        config.experimental = config.experimental || {};
+        config.experimental.mcp_timeout = ${{ inputs.mcp_timeout }};
         fs.writeFileSync('$OPENCODE_CONFIG', JSON.stringify(config, null, 2));
         " "${MCP_FILES[@]}"
         echo "MCP config merged into $OPENCODE_CONFIG"
