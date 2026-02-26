@@ -6,7 +6,6 @@ Task:
 - Explore the repository to understand the project structure, research methodology, experimental design, and system architecture. Read relevant files such as source code under `src/`, configuration under `config/`, workflow definitions under `.github/workflows/`, and any documentation or LaTeX files if present.
 - Based on your understanding of the repository and DIAGRAM_DESCRIPTION, identify which conceptual diagrams to generate. If DIAGRAM_DESCRIPTION is empty, infer appropriate diagrams from the repository content.
 - Use the PaperBanana MCP tool `generate_diagram` to create each diagram.
-  - IMPORTANT: Keep the `source_context` and `caption` parameters SHORT (under 500 characters each). Use concise bullet points or keywords, NOT full sentences or detailed explanations. Long text will be truncated by the MCP transport layer and cause generation failures.
 - Save generated diagrams to the OUTPUT_DIR directory (create it if it does not exist).
 
 Constraints:
