@@ -171,6 +171,7 @@ jobs:
 
           if ! git diff --staged --quiet; then
             git commit -m "[CI] Generate diagrams using ${{ github.event.inputs.github_actions_agent }}"
+            git checkout -- .
             for i in {1..5}; do
               git pull --rebase -X theirs origin ${{ github.event.inputs.branch_name }}
               git push && break
