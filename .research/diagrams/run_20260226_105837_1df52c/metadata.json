@@ -1,0 +1,25 @@
+{
+  "run_id": "run_20260226_105837_1df52c",
+  "timestamp": "2026-02-26T10:59:44.337212",
+  "vlm_provider": "gemini",
+  "vlm_model": "gemini-2.0-flash",
+  "image_provider": "google_imagen",
+  "image_model": "gemini-3-pro-image-preview",
+  "refinement_iterations": 1,
+  "seed": null,
+  "config_snapshot": {
+    "vlm_provider": "gemini",
+    "vlm_model": "gemini-2.0-flash",
+    "image_provider": "google_imagen",
+    "image_model": "gemini-3-pro-image-preview",
+    "num_retrieval_examples": 10,
+    "refinement_iterations": 3,
+    "output_resolution": "2k",
+    "reference_set_path": "data/reference_sets",
+    "guidelines_path": "data/guidelines",
+    "output_dir": ".research/diagrams",
+    "save_iterations": true,
+    "openrouter_api_key": "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",
+    "skip_ssl_verification": false
+  }
+}
