@@ -1,0 +1,141 @@
+name: Interactive Claude Session
+
+on:
+  workflow_dispatch:
+    inputs:
+      session_password:
+        description: 'ttyd Basic認証パスワード (ブラウザアクセス時に使用)'
+        required: true
+        type: string
+      timeout_hours:
+        description: 'セッション維持時間 (最大6)'
+        required: false
+        default: '2'
+        type: choice
+        options:
+          - '1'
+          - '2'
+          - '3'
+          - '4'
+          - '5'
+          - '6'
+
+jobs:
+  interactive-session:
+    runs-on: ubuntu-latest
+    timeout-minutes: ${{ fromJSON(github.event.inputs.timeout_hours) * 60 }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          # Tmux
+          sudo apt-get update && sudo apt-get install -y tmux
+
+          # Claude Code
+          npm install -g @anthropic-ai/claude-code
+
+          # ttyd (Web terminal)
+          TTYD_VERSION="1.7.7"
+          wget -q "https://github.com/tsl0922/ttyd/releases/download/${TTYD_VERSION}/ttyd.x86_64" -O /usr/local/bin/ttyd
+          chmod +x /usr/local/bin/ttyd
+
+          # cloudflared (Cloudflare Tunnel)
+          wget -q "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64" -O /usr/local/bin/cloudflared
+          chmod +x /usr/local/bin/cloudflared
+
+      - name: Start interactive Claude session
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SESSION_PASSWORD: ${{ inputs.session_password }}
+        run: |
+          echo "============================================"
+          echo " Interactive Claude Code Session"
+          echo "============================================"
+
+          # ── 1. Tmux + Claude Code ──
+          # 環境変数はtmuxのグローバル環境に設定（画面に表示されない）
+          tmux set-environment -g ANTHROPIC_API_KEY "$ANTHROPIC_API_KEY"
+
+          # Tmuxセッションを作成し、claudeを起動
+          tmux new-session -d -s ai-session "claude"
+
+          echo "[OK] Tmux session 'ai-session' started with Claude Code"
+
+          # Claudeの起動を少し待つ
+          sleep 3
+
+          # ── 2. ttyd (Web Terminal) ──
+          # -W: 書き込み許可 (操作可能にする)
+          # -c: Basic認証 (user:password)
+          # -p: ポート番号
+          # -t: ターミナルオプション (フォントサイズ等)
+          ttyd \
+            -W \
+            -p 7681 \
+            -c "claude:${SESSION_PASSWORD}" \
+            -t fontSize=16 \
+            -t cursorBlink=true \
+            tmux attach -t ai-session &
+
+          TTYD_PID=$!
+          echo "[OK] ttyd started on port 7681 (PID: $TTYD_PID)"
+
+          sleep 2
+
+          # ── 3. Cloudflare Tunnel ──
+          # Quick Tunnel（アカウント不要・一時的なURL）を使用
+          # URLをログに出力するため、stderrをファイルにリダイレクト
+          cloudflared tunnel --url http://localhost:7681 2>&1 | tee /tmp/cloudflared.log &
+          CLOUDFLARED_PID=$!
+
+          # Cloudflare TunnelのURLが生成されるまで待機
+          echo ""
+          echo "Waiting for Cloudflare Tunnel URL..."
+          for i in $(seq 1 30); do
+            TUNNEL_URL=$(grep -o 'https://[a-z0-9\-]*\.trycloudflare\.com' /tmp/cloudflared.log 2>/dev/null | head -1)
+            if [ -n "$TUNNEL_URL" ]; then
+              break
+            fi
+            sleep 2
+          done
+
+          echo ""
+          echo "============================================"
+          echo " SESSION READY"
+          echo "============================================"
+          echo ""
+          if [ -n "$TUNNEL_URL" ]; then
+            echo "  Access URL : $TUNNEL_URL"
+          else
+            echo "  [WARN] Tunnel URL not detected yet."
+            echo "  Check the logs above for the URL."
+          fi
+          echo ""
+          echo "  Username   : claude"
+          echo "  Password   : (workflow_dispatch で指定したパスワード)"
+          echo ""
+          echo "  Timeout    : ${{ inputs.timeout_hours }} hour(s)"
+          echo ""
+          echo "  Tips:"
+          echo "    - ブラウザをリロードしてもセッションは維持されます"
+          echo "    - 終了するには Actions ページからワークフローをキャンセルしてください"
+          echo "============================================"
+          echo ""
+
+          # セッションが生き続けるように待機
+          # tmuxセッションが存在する間、またはタイムアウトまで維持
+          while tmux has-session -t ai-session 2>/dev/null; do
+            sleep 30
+          done
+
+          echo "Tmux session ended. Cleaning up..."
+          kill $TTYD_PID 2>/dev/null || true
+          kill $CLOUDFLARED_PID 2>/dev/null || true
