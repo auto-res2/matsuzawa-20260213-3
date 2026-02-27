@@ -60,16 +60,24 @@ jobs:
           echo "============================================"
 
           # ── 1. Tmux + Claude Code ──
-          # 環境変数はtmuxのグローバル環境に設定（画面に表示されない）
+          # tmuxソケットディレクトリを事前に作成
+          mkdir -p /tmp/tmux-$(id -u)
+
+          # まずセッションを作成（シェルを起動するだけ）
+          tmux new-session -d -s ai-session
+
+          # セッションが作成されたことを確認
+          tmux has-session -t ai-session
+          echo "[OK] Tmux session 'ai-session' created"
+
+          # 環境変数をtmuxのグローバル環境に設定してから、claudeを起動
           tmux set-environment -g ANTHROPIC_API_KEY "$ANTHROPIC_API_KEY"
+          tmux send-keys -t ai-session 'claude' C-m
 
-          # Tmuxセッションを作成し、claudeを起動
-          tmux new-session -d -s ai-session "claude"
-
-          echo "[OK] Tmux session 'ai-session' started with Claude Code"
+          echo "[OK] Claude Code launched inside tmux session"
 
           # Claudeの起動を少し待つ
-          sleep 3
+          sleep 5
 
           # ── 2. ttyd (Web Terminal) ──
           # -W: 書き込み許可 (操作可能にする)
