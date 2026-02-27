@@ -7,23 +7,22 @@ on:
         description: 'ttyd Basic認証パスワード (ブラウザアクセス時に使用)'
         required: true
         type: string
-      timeout_hours:
-        description: 'セッション維持時間 (最大6)'
+      timeout_minutes:
+        description: 'セッション維持時間（分単位, 最大360）'
         required: false
-        default: '2'
+        default: '120'
         type: choice
         options:
-          - '1'
-          - '2'
-          - '3'
-          - '4'
-          - '5'
-          - '6'
+          - '60'
+          - '120'
+          - '180'
+          - '240'
+          - '360'
 
 jobs:
   interactive-session:
     runs-on: ubuntu-latest
-    timeout-minutes: ${{ fromJSON(github.event.inputs.timeout_hours) * 60 }}
+    timeout-minutes: ${{ fromJSON(github.event.inputs.timeout_minutes) }}
 
     steps:
       - name: Checkout repository
@@ -122,7 +121,7 @@ jobs:
           echo "  Username   : claude"
           echo "  Password   : (workflow_dispatch で指定したパスワード)"
           echo ""
-          echo "  Timeout    : ${{ inputs.timeout_hours }} hour(s)"
+          echo "  Timeout    : ${{ inputs.timeout_minutes }} minutes"
           echo ""
           echo "  Tips:"
           echo "    - ブラウザをリロードしてもセッションは維持されます"
