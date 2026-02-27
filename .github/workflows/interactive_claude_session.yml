@@ -60,8 +60,10 @@ jobs:
           echo "============================================"
 
           # ── 1. Tmux + Claude Code ──
-          # tmuxソケットディレクトリを事前に作成
-          mkdir -p /tmp/tmux-$(id -u)
+          # tmuxソケットディレクトリを事前に作成（権限700必須）
+          TMUX_TMPDIR="/tmp/tmux-$(id -u)"
+          mkdir -p "$TMUX_TMPDIR"
+          chmod 700 "$TMUX_TMPDIR"
 
           # まずセッションを作成（シェルを起動するだけ）
           tmux new-session -d -s ai-session
