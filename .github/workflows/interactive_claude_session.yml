@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       session_password:
-        description: 'ttyd Basic認証パスワード (ブラウザアクセス時に使用)'
+        description: 'ttyd Basic認証パスワード'
         required: true
         type: string
       timeout_minutes:
