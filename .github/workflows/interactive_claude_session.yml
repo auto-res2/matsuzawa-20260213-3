@@ -60,32 +60,22 @@ jobs:
           echo "============================================"
 
           # ── 1. Tmux + Claude Code ──
-          # tmuxソケットディレクトリを事前に作成（権限700必須）
           TMUX_TMPDIR="/tmp/tmux-$(id -u)"
           mkdir -p "$TMUX_TMPDIR"
           chmod 700 "$TMUX_TMPDIR"
 
-          # まずセッションを作成（シェルを起動するだけ）
           tmux new-session -d -s ai-session
-
-          # セッションが作成されたことを確認
           tmux has-session -t ai-session
           echo "[OK] Tmux session 'ai-session' created"
 
-          # 環境変数をtmuxのグローバル環境に設定してから、claudeを起動
           tmux set-environment -g ANTHROPIC_API_KEY "$ANTHROPIC_API_KEY"
           tmux send-keys -t ai-session 'claude' C-m
 
           echo "[OK] Claude Code launched inside tmux session"
 
-          # Claudeの起動を少し待つ
           sleep 5
 
           # ── 2. ttyd (Web Terminal) ──
-          # -W: 書き込み許可 (操作可能にする)
-          # -c: Basic認証 (user:password)
-          # -p: ポート番号
-          # -t: ターミナルオプション (フォントサイズ等)
           ttyd \
             -W \
             -p 7681 \
@@ -100,12 +90,9 @@ jobs:
           sleep 2
 
           # ── 3. Cloudflare Tunnel ──
-          # Quick Tunnel（アカウント不要・一時的なURL）を使用
-          # URLをログに出力するため、stderrをファイルにリダイレクト
           cloudflared tunnel --url http://localhost:7681 2>&1 | tee /tmp/cloudflared.log &
           CLOUDFLARED_PID=$!
 
-          # Cloudflare TunnelのURLが生成されるまで待機
           echo ""
           echo "Waiting for Cloudflare Tunnel URL..."
           for i in $(seq 1 30); do
@@ -139,8 +126,6 @@ jobs:
           echo "============================================"
           echo ""
 
-          # セッションが生き続けるように待機
-          # tmuxセッションが存在する間、またはタイムアウトまで維持
           while tmux has-session -t ai-session 2>/dev/null; do
             sleep 30
           done
